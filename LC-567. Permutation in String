@@ -1,0 +1,40 @@
+class Solution {
+public:
+bool equal(int arr1[26],int arr2[26]){
+    for(int i=0;i<26;i++){
+        if(arr1[i]!=arr2[i])return false;
+    }
+    return true;
+}
+    bool checkInclusion(string s1, string s2) {
+        int a[26]={0};
+        int b[26]={0};
+        int n=s1.length();
+        int m=s2.length();
+
+        //mapping for s1
+        for(int i=0;i<n;i++){
+            int k=s1[i]-'a';
+            a[k]++;
+        }
+        //mapping for s2
+        for(int i=0;i<n && i<m;i++){
+            int z=s2[i]-'a';
+            b[z]++;
+        }
+        //comparing
+        if(equal(a,b))return true;
+
+        //for remaining window
+        for(int i=n;i<m;i++){
+            int f=s2[i]-'a';
+            b[f]++;
+
+            int k=s2[i-n]-'a';
+            b[k]--;
+
+            if(equal(a,b))return true;
+        }
+        return false;
+    }
+};
