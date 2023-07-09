@@ -1,0 +1,45 @@
+class Solution {
+public:
+int first(vector<int>&nums,int k){
+    int s=0,e=nums.size()-1;
+    int mid=s+(e-s)/2;
+    int ans=-1;
+    while(s<=e){
+       if(nums[mid]==k){
+           ans=mid;
+           e=mid-1;
+       }
+       else if(nums[mid]<k)s=mid+1;
+
+       else e=mid-1;
+
+       mid=s+(e-s)/2;
+    }
+     return ans;
+}
+int second(vector<int>&nums,int k){
+    int s=0,e=nums.size()-1;
+    int mid=s+(e-s)/2;
+    int ans=-1;
+    while(s<=e){
+       if(nums[mid]==k){
+           ans=mid;
+           s=mid+1;
+       }
+       else if(nums[mid]<k)s=mid+1;
+
+       else e=mid-1;
+
+       mid=s+(e-s)/2;
+    }
+     return ans;
+}
+    vector<int> searchRange(vector<int>& nums, int target) {
+        vector<int>ans;
+       int p=first(nums,target);
+       int q=second(nums,target);
+        ans.push_back(p);
+        ans.push_back(q);
+        return ans;
+    }
+};
