@@ -7,12 +7,12 @@ public:
       ListNode* forward=NULL;
       int count=0;
 
-       ListNode* cursor = head;
-        for(int i = 0; i < k; i++){
-         if(cursor == nullptr) 
-             return head;
-         cursor = cursor->next;
-    }
+       //checking if sufficient nodes are there for reversing or not
+       ListNode* temp = head;
+       for(int i = 0; i < k; i++){
+         if(temp==NULL)return head;
+         temp= temp->next;
+       }
 
       while(curr!=NULL && count<k){
           forward=curr->next;
