@@ -1,0 +1,18 @@
+class Solution {
+public:
+bool checkpalindrome(vector<int>arr){
+    vector<int>ans;
+    ans=arr;
+    reverse(arr.begin(),arr.end());
+    return ans==arr;
+}
+    bool isPalindrome(ListNode* head) {
+        vector<int>brr;
+        ListNode* curr=head;
+        while(curr!=NULL){
+            brr.push_back(curr->val);
+            curr=curr->next;
+        }
+        return checkpalindrome(brr);
+    }
+};
