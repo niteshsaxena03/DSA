@@ -1,0 +1,79 @@
+1.SELECTION SORT
+
+void selectionsort(vector<int>arr){
+  int n=arr.size();
+  for(int i=0;i<n;i++){
+    int minin=i;
+    for(int j=i+1;j<n;j++){
+      if(arr[j]<arr[minin])minin=j;
+    }
+    swap(arr[i],arr[minin]);
+  }
+}
+
+2.BUBBLE SORT
+
+void bubblesort(vector<int>arr){
+  int n=arr.size();
+  for(int i=0;i<n-1;i++){
+    if(arr[i]>arr[i+1])swap(arr[i],arr[i+1]);
+  }
+  bubblesort(arr,n-1);
+}
+
+3.INSERTION SORT
+
+void insertionsort(vector<int>arr){
+  int n=arr.size();
+  for(int i=1;i<n;i++){
+    int temp=arr[i];
+    int j=i-1;
+    for(;j>=0;j--){
+      if(arr[j]>arr[i])arr[j+1]=arr[j];
+      else break;
+    }
+    arr[j+1]=temp;
+  }
+}
+
+4.MERGE SORT
+
+void mergesort(int *arr,int s,int e){
+  int mid=s+(e-s)/2;
+  int len1=mid-s+1;
+  int len2=e-mid;
+
+  int *array1=new int(len1);
+  int *array2=new int(len2);
+
+  int m=s;
+  for(int i=0;i<len1;i++)array1[i]=arr[m++];
+  for(int i=0;i<len2;i++)array2[i]=arr[m++];
+  //both arrays are filled now
+  //merging
+
+  int i1=0,i2=0;
+  int mainindex=s;
+
+  while(i1<len1 && i2<len2){
+    if(array1[i1]<array2[i2])arr[mainindex++]=array1[i1++];
+    else arr[mainindex++]=array2[i2++];
+  }
+  while(i1<len1)arr[mainindex++]=array1[i1++];
+
+  while(i2<len2)arr[mainindex++]=array2[i2++];
+
+  delete [] array1;
+  delete [] array2;
+  
+}
+
+void merge(int *arr,int s,int e){
+  if(s>e)return;
+  int mid=s+(e-s)/2;
+
+  mergesort(arr,s,mid);
+  mergesort(arr,mid+1,e);
+  merge(arr,s,e);
+  
+}
