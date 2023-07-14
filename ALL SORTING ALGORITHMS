@@ -77,3 +77,37 @@ void merge(int *arr,int s,int e){
   merge(arr,s,e);
   
 }
+
+5.QUICK SORT
+
+int partition(int *arr,int s,int e){
+  int par=arr[s];
+  int count=0;
+
+  for(int i=s+1;i<e;i++){
+    if(arr[i]<=par)count++;
+  }
+  int pivotindex=s+count;
+  swap(par,arr[pivotindex]);
+
+  //sorting left and right
+  int i=s,j=e;
+
+  while(i<pivotindex && j>pivotindex){
+    while(arr[i]<=par)i++;
+    while(arr[j]>=par)j--;
+
+    if(i<pivotindex && j>pivotindex){
+      swap(arr[i++],arr[j--]);
+    }
+  }
+  return pivotindex;
+}
+
+void quicksort(int *arr,int s,int e){
+  if(s>=e)return;
+  int p=partition(arr,s,e);
+
+  quicksort(arr, s, p-1);
+  quicksort(arr,p+1, e);
+}
