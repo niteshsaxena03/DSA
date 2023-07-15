@@ -1,0 +1,82 @@
+#include <iostream>
+using namespace std;
+
+class TrieNode{
+public:
+bool isterminal;
+TrieNode *children[26];
+char data;
+
+TrieNode(char ch){
+  data=ch;
+
+  for(int i=0;i<26;i++)children[i]=NULL;
+
+  isterminal=false;
+}
+};
+
+class Trie{
+public:
+TrieNode *root;
+Trie(){
+  root=new TrieNode('\0');
+}
+
+void insertutil(TrieNode *root,string word){
+  TrieNode *child;
+  //base case
+  if(word.length()==0){
+    root->isterminal=true;
+    return;
+  }
+
+  int index=word[0]-'A';
+
+  if(root->children[index]!=NULL){
+    child=root->children[index];
+  }
+  else{
+    child=new TrieNode('\0');
+    root->children[index]=child;
+  }
+
+  insertutil(child, word.substr(1) );
+  
+}
+
+bool searchutil(TrieNode *root,string word){
+  TrieNode *child;
+  //base case
+  if(word.size()==0){
+    return root->isterminal;
+  }
+  int index=word[0]-'A';
+
+  if(root->children[index]!=NULL){
+    child=root->children[index];
+  }
+  else return false;
+
+  return searchutil(child,word.substr(1));
+}
+};
+void removeutil(TrieNode *root,string word){
+  TrieNode *child;
+  //base case
+  if(word.size()==0){
+    root->isterminal=false;
+    return;
+  }
+  int index=word[0]-'A';
+
+  if(root->children[index]!=NULL){
+    child=root->children[index];
+  }
+  else{
+    child=new TrieNode(word[0]);
+    root->children[index]=child;
+  }
+
+  removeutil(child,word.substr(1));
+}
