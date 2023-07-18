@@ -1,0 +1,16 @@
+class Solution{
+public:
+    stack<int> insertAtBottom(stack<int> S,int X){
+        vector<int>j;
+        stack<int>p;
+        while(!S.empty()){
+           j.push_back(S.top());
+           S.pop();
+        }
+       
+        j.push_back(X);
+        reverse(j.begin(),j.end());
+        for(int i=0;i<j.size();i++)p.push(j[i]);
+        return p;
+    }
+};
