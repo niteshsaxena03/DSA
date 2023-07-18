@@ -1,0 +1,24 @@
+class Solution {
+public:
+    bool isValid(string s) {
+        stack<int>p;
+        int n=s.size();
+        for(int i=0;i<n;i++){
+            char d=s[i];
+           
+            if(d=='('||d=='{'||d=='[')p.push(d);
+              
+            else {
+                if(!p.empty()){
+                char k=p.top();
+                if((k=='(' && d==')')||(k=='{'&&d=='}')||(k=='['&& d==']'))p.pop();
+                else return false;
+
+                }
+                else return false;
+            }
+        }
+        if(p.empty())return true;
+        else return false;
+    }
+};
