@@ -1,0 +1,16 @@
+
+void sorted(vector<int>&v){
+    sort(v.begin(),v.end());
+}
+void SortedStack :: sort()
+{
+    stack<int>ans;
+   vector<int>j;
+   while(!s.empty()){
+       j.push_back(s.top());
+       s.pop();
+   }
+   sorted(j);
+   for(int i=0;i<j.size();i++)ans.push(j[i]);
+   s=ans;
+}
