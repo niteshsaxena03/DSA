@@ -1,0 +1,28 @@
+class Solution
+{
+    public:
+   
+    int mid=0;
+    void deleteMid(stack<int>&s, int n)
+    {
+      stack<int>ans;
+      vector<int>j;
+      if(n%2==0) mid=n/2;
+      else mid=((n/2)+((n/2)+1))/2;
+      
+      for(int i=0;i<n;i++){
+          if(i==mid)s.pop();
+          
+          else{
+           
+              j.push_back(s.top());
+              s.pop();
+          }
+      }
+      reverse(j.begin(),j.end());
+      for(int i=0;i<j.size();i++)ans.push(j[i]);
+      s=ans;
+      
+      
+    }
+};
