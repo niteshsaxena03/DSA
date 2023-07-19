@@ -30,16 +30,14 @@ class Solution{
     public:
     vector<int> help_classmate(vector<int> arr, int n) 
     { 
-       vector<int>ans(n);
-       stack<int>s;
-       s.push(-1);
-       for(int i=n-1;i>=0;i--){
-           int curr=arr[i];
-           while(s.top()>=curr)s.pop();
-           ans[i]=s.top();
-           s.push(curr);
-       }
-       return ans;
+      vector<int>ans(n);
+      stack<int>s;
+      s.push(-1);
+      for(int i=n-1;i>=0;i--){
+          while(s.top()>=arr[i])s.pop();
+          ans[i]=s.top();
+          s.push(arr[i]);
+      }
+      return ans;
     } 
-
 };
