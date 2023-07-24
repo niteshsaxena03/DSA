@@ -1,4 +1,4 @@
-#BFS CODE
+#BFS 
 
 #include <bits/stdc++.h> 
 #include<unordered_map>
@@ -47,7 +47,7 @@ vector<int> BFS(int vertex, vector<pair<int, int>> edges)
     return ans;
 }
 
-#DFS CODESTUDIO
+#DFS 
 
 #include<iostream>
 #include <unordered_map>
