@@ -1,0 +1,38 @@
+class Solution
+{
+	public:
+	//Function to return list containing vertices in Topological order. 
+    void ts(int node,stack<int>&s,vector<int>&vis,vector<int> adj[]){
+        vis[node]=1;
+        
+        for(auto i:adj[node]){
+            if(!vis[i]){
+                ts(i,s,vis,adj);
+            }
+        }
+        //at every recursive call
+        s.push(node);
+    }
+
+
+
+
+
+	vector<int> topoSort(int V, vector<int> adj[]) 
+	{
+	    stack<int>s;
+	    
+	    vector<int>vis(V);
+	    for(int i=0;i<V;i++){
+	        if(!vis[i]){
+	            ts(i,s,vis,adj);
+	        }
+	    }
+	    vector<int>ans;
+	    while(!s.empty()){
+	        ans.push_back(s.top());
+	        s.pop();
+	    }
+	    return ans;
+	}
+};
