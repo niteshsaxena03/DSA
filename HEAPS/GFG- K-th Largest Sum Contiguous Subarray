@@ -1,0 +1,25 @@
+
+class Solution{
+public:
+    int kthLargest(vector<int> &Arr,int N,int K){
+        vector<int>tsum;
+        priority_queue<int,vector<int>,greater<int>>q;
+        for(int i=0;i<N;i++){
+            int sum=0;
+            for(int j=i;j<N;j++){
+                sum+=Arr[j];
+                tsum.push_back(sum);
+            }
+        }
+        for(int i=0;i<K;i++)q.push(tsum[i]);
+        
+        for(int i=K;i<tsum.size();i++){
+            int p=q.top();
+            if(tsum[i]>p){
+                q.pop();
+                q.push(tsum[i]);
+            }
+        }
+        return q.top();
+    }
+};
