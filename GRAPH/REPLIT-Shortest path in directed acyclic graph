@@ -1,0 +1,73 @@
+#include<iostream>
+#include<unordered_map>
+#include<stack>
+#include<limits.h>
+#include<list>
+#include <vector>
+using namespace std;
+
+class Graph{
+public:
+unordered_map<int, list<pair<int,int>>>adj
+  
+//adjlist
+void adj(int u,int v,int w){
+  pair<int,int>p={v,w};
+  adj[u].push_back(p);
+}
+
+void dfs(int node,unordered_map<int,bool>&vis,vector<int,list<pair<int,int>>>&adj,stack<int>&s){
+  vis[node]=1;
+
+  for(auto i:adj[node]){
+    if(!vis[i]){
+      dfs(i,vis,adj,s);
+    }
+  }
+  s.push(node);
+}
+
+void getshort(int src,vector<int>&dist,stack<int>&s){
+    while(!s.empty()){
+    int k=s.top();
+    s.pop();
+
+    for(auto i:adj[k]){
+      if(dist[i]!=INT_MAX){
+        if(dist[k]+i.second<dist[i.first])dist[i.first]=i.second+dist[k];
+      }
+    }
+  }
+}
+};
+
+int main(){
+  unordered_map<int,bool>vis;
+  stack<int>s;
+ 
+
+  Graph G;
+  G.adj(3, 9, 0);
+  G.adj(4, 8, 0);
+  G.adj(5, 7, 0);
+  G.adj(6, 1, 0);
+  G.adj(7, 3, 0);
+  G.adj(8, 7, 0);
+   int n=6;
+
+  //dfs traversal
+  for(int i=0;i<n;i++){
+    if(!vis[i]){
+      G.dfs(i,s,vis);
+    }
+  }
+  
+  int src=1;
+  vector<int>dist(n);
+  for(int i=0;i<n;i++)dist[i]=INT_MAX;
+  dist[src]=1;
+  
+  G.getshort(src,dist,s);
+
+
+}
