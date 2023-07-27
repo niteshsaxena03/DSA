@@ -1,0 +1,48 @@
+#include <bits/stdc++.h> 
+#include<set>
+#include<unordered_map>
+#include<list>
+#include<vector>
+#include<limits.h>
+
+vector<int> dijkstra(vector<vector<int>> &vec, int vertices, int edges, int source) {
+   //preparing adjlist
+   unordered_map<int,list<pair<int,int>>>adj;
+   for(int i=0;i<edges;i++){
+       int u=vec[i][0];
+       int v=vec[i][1];
+       int w=vec[i][2];
+
+       adj[u].push_back({v,w});
+       adj[v].push_back({u,w});
+   }
+   //set for storing distance and node
+   set<pair<int,int>>s;
+   vector<int>dist(vertices);
+   for(int i=0;i<vertices;i++)dist[i]=INT_MAX;
+
+   dist[source]=0;
+   s.insert({0,source});
+
+   while(!s.empty()){
+       auto k=*(s.begin());
+
+       int nd=k.first;
+       int no=k.second;
+       //popping out first element
+       s.erase(s.begin());
+       for(auto i:adj[no]){
+           if(nd+i.second<dist[i.first]){
+               
+               auto rec=s.find({dist[i.first],i.first});
+               //removing the old record of distance and node
+               if(rec!=s.end())s.erase(rec);
+
+               dist[i.first]=nd+i.second;
+               //pushing new record
+               s.insert({dist[i.first],i.first});
+           }
+       }
+   }
+   return dist;
+}
