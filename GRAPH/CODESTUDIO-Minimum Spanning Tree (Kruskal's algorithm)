@@ -1,1 +1,57 @@
 
+#include <iostream>
+#include<vector>
+#include <algorithm>
+bool compare(vector<int>&a,vector<int>&b){
+  return a[2]<b[2];
+}
+//initial set
+void makeset(vector<int>&parent,vector<int>&rank,int n){
+  for(int i=0;i<n;i++){
+    parent[i]=i;
+    rank[i]=0;
+  }
+}
+//finding parent
+int findparent(vector<int>&parent,int node){
+  if(parent[node]==node)return node;
+  return parent[node]=findparent(parent,parent[node]);
+}
+//new set
+void unionset(int u,int v,vector<int>&parent,vector<int>&rank){
+  u=findparent(parent,u);
+  v=findparent(parent,v);
+  if(rank[u]<rank[v]){
+    rank[v]++;
+    parent[u]=v;
+  }
+  else if(rank[v]<rank[u]){
+    rank[u]++;
+    parent[v]=u;
+  }
+  else{
+    parent[v]=u;
+    rank[u]++;
+  }
+}
+
+int minimumSpanningTree(vector<vector<int>>& edges, int n)
+{
+  sort(edges.begin(),edges.end(),compare);
+  vector<int>parent(n);
+  vector<int>rank(n);
+  //making initial set
+  makeset(parent,rank,n);
+  int minw=0;
+  for(int i=0;i<edges.size();i++){
+    int u=findparent(parent,edges[i][0]);
+    int v=findparent(parent,edges[i][1]);
+    int w=edges[i][2];
+    
+    if(u!=v){
+      minw+=w;
+      unionset(u,v,parent,rank);
+    }
+  }
+  return minw;
+}
