@@ -1,0 +1,67 @@
+#include <unordered_map>
+#include <vector>
+#include <list>
+#include <stack>
+void topo(int node,unordered_map<int,list<int>>&adj,unordered_map<int,bool>&vis,stack<int>&s){
+	vis[node]=true;
+
+	for(auto i:adj[node]){
+		if(!vis[i]){
+			topo(i,adj,vis,s);
+		}
+	}
+	//backtracking
+	s.push(node);
+}
+void revdfs(int node,unordered_map<int,list<int>>&adj,unordered_map<int,bool>&vis){
+	vis[node]=true;
+
+	for(auto i:adj[node]){
+		if(!vis[i]){
+            revdfs(i,adj,vis);
+		}
+	}
+}
+
+
+int stronglyConnectedComponents(int v, vector<vector<int>> &edges)
+{
+	stack<int>s;
+	unordered_map<int,list<int>>adj;
+	unordered_map<int,bool>vis;
+	int count=0;
+	unordered_map<int,list<int>>transpose;
+	//preparing adjlist
+	for(int i=0;i<edges.size();i++){
+		int u=edges[i][0];
+		int v=edges[i][1];
+
+		adj[u].push_back(v);
+		
+	}
+    //preparing topological sort stack
+	for(int i=0;i<v;i++){
+       if(!vis[i]){
+		   topo(i,adj,vis,s);
+	   }
+	}
+	//preparing transpose graph
+	for(int i=0;i<v;i++){
+	  vis[i]=false;
+	   for(auto j:adj[i])transpose[j].push_back(i);
+	}
+	
+	while(!s.empty()){
+           auto k=s.top();
+		   s.pop();
+
+		   //using dfs traversal
+		   
+			   if(!vis[k]){
+                    count++;
+					revdfs(k,transpose,vis);
+			   }
+		   
+	}
+	return count;
+}
