@@ -1,0 +1,17 @@
+class Solution {
+public:
+int solvemem(vector<int>& nums,vector<int>&dp,int n){
+    if(n<0)return 0;
+    if(n==0)return nums[0];
+    if(dp[n]!=-1)return dp[n];
+
+    int incl=solvemem(nums,dp,n-2)+nums[n];
+    int excl=solvemem(nums,dp,n-1)+0;
+    return dp[n]=max(incl,excl);
+}
+    int rob(vector<int>& nums) {
+        int n=nums.size();
+        vector<int>dp(n,-1);
+        return solvemem(nums,dp,n-1);
+    }
+};
