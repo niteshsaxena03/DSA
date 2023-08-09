@@ -1,0 +1,27 @@
+#include <bits/stdc++.h> 
+#include <vector>
+#include <limits.h>
+#define mod 1000000007
+
+int add(int a,int b){
+    return (a%mod+b%mod)%mod;
+}
+int mul(int a,int b){
+    return (a%mod*1LL*b%mod)%mod;
+}
+int solvemem(int n,int k,vector<int>&dp){
+    if(n==1)return k;
+    if(n==2)return add(k,mul(k,k-1));
+
+    if(dp[n]!=-1)return dp[n]; 
+    return dp[n]=add((mul(solvemem(n-2,k,dp),k-1)),(mul(solvemem(n-1,k,dp),k-1)));
+    
+
+
+
+}
+
+int numberOfWays(int n, int k) {
+    vector<int>dp(n+1,-1);
+    return solvemem(n,k,dp);
+}
