@@ -1,0 +1,27 @@
+class Solution {
+public:
+    int solvemem(int n,vector<int>&dp,vector<int>& days,vector<int>& costs,int index){
+        if(index>=n)return 0;
+        if(dp[index]!=-1)return dp[index];
+        int i;
+        //calculating for 1 day pass
+        int op1=costs[0]+solvemem(n,dp,days,costs,index+1);
+
+        //calculating for 7 day pass
+        for(i=index;i<n && days[i]<days[index]+7;i++);
+            int op2=costs[1]+solvemem(n,dp,days,costs,i);
+        
+        //calculating for 30 day pass
+        for(i=index;i<n && days[i]<days[index]+30;i++);
+            int op3=costs[2]+solvemem(n,dp,days,costs,i);
+        
+        return dp[index]=min({op1,op2,op3});
+        
+    }
+
+    int mincostTickets(vector<int>& days, vector<int>& costs) {
+        int n=days.size();
+        vector<int>dp(n,-1);
+        return solvemem(n,dp,days,costs,0);
+    }
+};
