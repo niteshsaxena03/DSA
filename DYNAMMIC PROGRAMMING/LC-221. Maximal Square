@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int solvemem(vector<vector<char>>& matrix,vector<vector<int>>&dp,int i,int j,int &ans){
+        //base case
+        if(i>=matrix.size()||j>=matrix[0].size())return 0;
+        if(dp[i][j]!=-1)return dp[i][j];
+        int count=0;
+        int diagonal=solvemem(matrix,dp,i+1,j+1,ans);
+        int right=solvemem(matrix,dp,i,j+1,ans);
+        int left=solvemem(matrix,dp,i+1,j,ans);
+
+        if(matrix[i][j]=='1'){
+          count=1+min({diagonal,left,right});
+          ans=max(ans,count);
+          return dp[i][j]=count;
+        }
+        else return 0;
+
+    }
+    int maximalSquare(vector<vector<char>>& matrix) {
+        int n=matrix.size();
+        int m=matrix[0].size();
+        int ans=0;
+        vector<vector<int>>dp(n,vector<int>(m,-1));
+        solvemem(matrix,dp,0,0,ans);
+        return (ans*ans);
+    }
+};
