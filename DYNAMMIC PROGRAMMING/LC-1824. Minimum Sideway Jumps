@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int solvemem(vector<int>& obstacles,vector<vector<int>>&dp,int lane,int pos){
+        //base case
+        if(pos==obstacles.size()-1)return 0;
+        if(dp[lane][pos]!=-1)return dp[lane][pos];
+        //if no obstacle go forward
+        if(obstacles[pos+1]!=lane)return solvemem(obstacles,dp,lane,pos+1);
+        //if obstacle present
+        int ans=INT_MAX;
+        for(int i=1;i<=3;i++){
+                if(lane!=i && obstacles[pos]!=i){
+                    ans=min(ans,1+solvemem(obstacles,dp,i,pos+1));
+                }
+            }
+        
+        return dp[lane][pos]=ans;
+
+    }
+   
+    int minSideJumps(vector<int>& obstacles) {
+        int n=obstacles.size();
+        vector<vector<int>>dp(4,vector<int>(n,-1));
+        return solvemem(obstacles,dp,2,0);
+    }
+};
