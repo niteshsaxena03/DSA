@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int solvemem(vector<int>& satisfaction,vector<vector<int>>&dp,int index,int time){
+        //base case
+        if(index==satisfaction.size())return 0;
+        if(dp[index][time]!=-1)return dp[index][time];
+
+        int include=satisfaction[index]*(time+1)+solvemem(satisfaction,dp,index+1,time+1);
+        int exclude=0+solvemem(satisfaction,dp,index+1,time);
+        return dp[index][time]=max(include,exclude);
+    }
+
+    int maxSatisfaction(vector<int>& satisfaction) {
+        sort(satisfaction.begin(),satisfaction.end());
+        int n=satisfaction.size();
+        vector<vector<int>>dp(n+1,vector<int>(n+1,-1));
+        return solvemem(satisfaction,dp,0,0);
+
+    }
+};
