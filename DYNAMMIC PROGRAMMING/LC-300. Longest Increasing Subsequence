@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int solvemem(vector<int>& nums,vector<vector<int>>&dp,int curr,int prev){
+  
+        //base case
+        if(curr==nums.size())return 0;
+        if(dp[curr][prev+1]!=-1)return dp[curr][prev+1];
+        int incl=0;
+        if(prev==-1||nums[curr]>nums[prev]){
+        incl=1+solvemem(nums,dp,curr+1,curr);
+        }
+        int excl=0+solvemem(nums,dp,curr+1,prev);
+        
+        return dp[curr][prev+1]=max(incl,excl);
+
+    }
+
+    int lengthOfLIS(vector<int>& nums) {
+       
+        int n=nums.size();
+        vector<vector<int>>dp(n,vector<int>(n+1,-1));
+        return solvemem(nums,dp,0,-1);
+    }
+};
