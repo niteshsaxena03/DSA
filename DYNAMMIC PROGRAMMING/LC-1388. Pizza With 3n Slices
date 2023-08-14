@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int solvemem(vector<int>& slices,vector<vector<int>>&dp,int n,int index,int endindex){
+        if(index>endindex||n==0)return 0;
+        if(dp[index][n]!=-1)return dp[index][n];
+        int incl=slices[index]+solvemem(slices,dp,n-1,index+2,endindex);
+        int excl=0+solvemem(slices,dp,n,index+1,endindex);
+
+        return dp[index][n]=max(incl,excl);
+
+
+    }
+
+    int maxSizeSlices(vector<int>& slices) {
+        int n=slices.size();
+        vector<vector<int>>dp1(n,vector<int>(n,-1));
+        int ans1=solvemem(slices,dp1,n/3,0,n-2);
+        vector<vector<int>>dp2(n,vector<int>(n,-1));
+        int ans2=solvemem(slices,dp2,n/3,1,n-1);
+        return max(ans1,ans2);
+    }
+};
