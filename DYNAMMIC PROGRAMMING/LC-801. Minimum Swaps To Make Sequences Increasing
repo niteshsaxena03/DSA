@@ -1,0 +1,36 @@
+class Solution {
+public:
+    int solvemem(vector<int>& nums1,vector<int>& nums2,vector<vector<int>>&dp,int index,bool swapped){
+        if(index>=nums1.size())return 0;
+        if(dp[index][swapped]!=-1)return dp[index][swapped];
+        int ans=INT_MAX;
+        int prev1=nums1[index-1];
+        int prev2=nums2[index-1];
+        //catch
+        if(swapped)swap(prev1,prev2);
+        //both increasing
+        if(nums1[index]>prev1 && nums2[index]>prev2){
+            //no swap
+            ans=min(ans,solvemem(nums1,nums2,dp,index+1,0));
+        }
+        //checking opposite arrays
+        if(nums1[index]>prev2 && nums2[index]>prev1){
+            //swap
+            ans=min(ans,1+solvemem(nums1,nums2,dp,index+1,1));
+        }
+
+        return dp[index][swapped]=ans;
+    }  
+
+    int minSwap(vector<int>& nums1, vector<int>& nums2) {
+        
+        //we put some -1 at the start of each array to make comparison easy.
+        nums1.insert(nums1.begin(), -1);
+        nums2.insert(nums2.begin(), -1);
+        int n=nums1.size();
+        //this variable will show if the last index was swapped or not(if swapped 1, else 0);
+        
+        vector<vector<int> > dp(n, vector<int>(2, -1));
+        return solvemem(nums1, nums2,dp,1,0);
+    }
+};
