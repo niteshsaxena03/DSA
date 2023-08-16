@@ -1,0 +1,13 @@
+class Solution {
+public:
+    int longestSubsequence(vector<int>& nums, int d) {
+        // mpp[x] = maximum length of arithmetic subsequence with given diff
+        unordered_map<int,int> dp;
+        int ans = 0;
+        for(int x : nums){
+            dp[x] = dp[x-d] + 1;
+            ans=max(ans,dp[x]);
+        }
+        return ans;
+    }
+};
