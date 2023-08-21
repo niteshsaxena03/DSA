@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int solvemem(vector<int>& prices,vector<vector<vector<int>>>&dp,int index,int buy,int counter){
+        if(index==prices.size()||counter==2)return 0;
+       
+        if(dp[index][buy][counter]!=-1)return dp[index][buy][counter];
+        int ans=0;
+        if(buy){
+            int incl=-prices[index]+solvemem(prices,dp,index+1,0,counter);
+            int excl=0+solvemem(prices,dp,index+1,1,counter);
+            ans=max(incl,excl);
+        }else{
+            int inc=prices[index]+solvemem(prices,dp,index+1,1,counter+1);
+            int exc=0+solvemem(prices,dp,index+1,0,counter);
+            ans=max(inc,exc);
+        }
+        return dp[index][buy][counter]=ans;
+    }
+
+    int maxProfit(vector<int>& prices) {
+        int n=prices.size();
+ vector<vector<vector<int>>> dp(n, vector<vector<int>>(2, vector<int>(3, -1)));
+        return solvemem(prices,dp,0,1,0);
+    }
+};
