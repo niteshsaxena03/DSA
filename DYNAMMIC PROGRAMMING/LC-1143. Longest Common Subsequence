@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int solvemem(string &text1,string &text2,vector<vector<int>>&dp,int i,int j){
+        if(i==text1.length()||j==text2.length())return 0;
+        if(dp[i][j]!=-1)return dp[i][j];
+
+        int ans=0;
+        //checking same element
+        if(text1[i]==text2[j]){
+            ans=1+solvemem(text1,text2,dp,i+1,j+1);
+        }else{
+            int incl=solvemem(text1,text2,dp,i+1,j);
+            int excl=solvemem(text1,text2,dp,i,j+1);
+            ans=max(incl,excl);
+        }
+        return dp[i][j]=ans;
+    }
+
+    int longestCommonSubsequence(string text1, string text2) {
+        int n=text1.size();
+        int m=text2.size();
+
+        vector<vector<int>>dp(n,vector<int>(m,-1));
+        return solvemem(text1,text2,dp,0,0);
+    }
+};
