@@ -25,7 +25,7 @@ while(succ!=NULL){
     suc=succ->data;
     succ=succ->left;
 }
-return {pre,suc};
+return {pre,suc};   
     
 }
   
