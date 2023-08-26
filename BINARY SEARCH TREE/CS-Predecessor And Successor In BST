@@ -16,7 +16,7 @@ pair<int,int> predecessorSuccessor(BinaryTreeNode<int>* root, int key)
         }
     }
 BinaryTreeNode<int>* pred=temp->left;
-while(pred!=NULL){
+while(pred!=NULL){    
     pre=pred->data;
     pred=pred->right;
 }
