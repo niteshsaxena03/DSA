@@ -1,0 +1,56 @@
+class Solution{
+    public:
+    
+    bool valid(int newx,int newy,vector<vector<int>>&m,int n,vector<vector<bool>>&vis){
+        if((newx>=0 && newx<n)&&(newy>=0 && newy<n)&&(m[newx][newy]==1)&&(vis[newx][newy]==0))return true;
+        
+        return false;
+    }
+    
+    void solve(int x,int y,vector<string>&ans,vector<vector<bool>>&vis,vector<vector<int>> &m,int n,string path){
+        if(x==n-1 && y==n-1){
+            ans.push_back(path);
+            return;
+        }
+        
+        //up
+        if(valid(x-1,y,m,n,vis)){
+            vis[x-1][y]=1;
+            solve(x-1,y,ans,vis,m,n,path+'U');
+            //backtracking
+            vis[x-1][y]=0;
+        }
+        //down
+        if(valid(x+1,y,m,n,vis)){
+            vis[x+1][y]=1;
+            solve(x+1,y,ans,vis,m,n,path+'D');
+            //backtracking
+            vis[x+1][y]=0;
+        }
+        //right
+        if(valid(x,y+1,m,n,vis)){
+            vis[x][y+1]=1;
+            solve(x,y+1,ans,vis,m,n,path+'R');
+            //backtracking
+            vis[x][y+1]=0;
+        }
+        //left
+        if(valid(x,y-1,m,n,vis)){
+            vis[x][y-1]=1;
+            solve(x,y-1,ans,vis,m,n,path+'L');
+            //backtracking
+            vis[x][y-1]=0;
+        }
+        
+    }
+    
+    vector<string> findPath(vector<vector<int>> &m, int n) {
+        vector<string>ans;
+        vector<vector<bool>>vis(n,vector<bool>(n,0));
+        string path="";
+        if(m[0][0]==0)return ans;
+        vis[0][0]=1;
+        solve(0,0,ans,vis,m,n,path);
+        return ans;
+    }
+};
