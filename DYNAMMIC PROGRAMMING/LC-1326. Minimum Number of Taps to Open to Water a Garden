@@ -1,0 +1,27 @@
+class Solution {
+public:
+    int solvemem(int index,int n,vector<int>&valid,vector<int>&dp){
+        if(index>=n)return 0;
+        if(valid[index]==0)return 1e9;
+        if(dp[index]!=-1)return dp[index];
+        int ans=1e9;
+        for(int i=index+1;i<=valid[index];i++){
+            ans=min(ans,1+solvemem(i,n,valid,dp));
+        }
+        return dp[index]=ans;
+    }
+
+    int minTaps(int n, vector<int>& ranges) {
+        //valid range array
+        vector<int>valid(n+1,-1);
+        for(int i=0;i<=n;i++){
+            if(ranges[i]==0)continue;
+            int p=max(0,i-ranges[i]);
+            int j=i+ranges[i];
+            valid[p]=max(valid[p],j);
+        }
+        vector<int>dp(n+2,-1);
+        int ans=solvemem(0,n,valid,dp);
+        return ans==1e9?-1:ans;
+    }
+};
