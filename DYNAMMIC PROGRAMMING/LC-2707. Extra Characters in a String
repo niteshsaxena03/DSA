@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int solvemem(int n,int index,string s,vector<int>&dp,unordered_set<string>&m){
+        if(index==n)return 0;
+        if(dp[index]!=-1)return dp[index];
+        int incl=n,excl=n;
+        string str="";
+        for(int i=index;i<n;i++){
+            str+=s[i];
+            if(m.find(str)!=m.end()){
+            incl=min(incl,solvemem(n,i
+            +1,s,dp,m));
+            }
+        }
+        excl=1+solvemem(n,index+1,s,dp,m);
+        return dp[index]=min(incl,excl);
+
+    }
+
+    int minExtraChar(string s, vector<string>& dictionary) {
+        int n=s.size();
+        unordered_set<string>m(dictionary.begin(),dictionary.end());
+        vector<int>dp(n+1,-1);
+        return solvemem(n,0,s,dp,m);
+    }
+};
