@@ -1,0 +1,32 @@
+class Solution {
+public:
+    bool valid(int newx,int newy,int m,int n){
+        if((newx>=0 && newx<m)&&(newy>=0 && newy<n)){
+            return true;
+        }
+        return false;
+    }
+    int solvemem(int x,int y,int m,int n,vector<vector<int>>&dp){
+        //base case
+        if(x==m-1 && y==n-1)return 1;
+        if(dp[x][y]!=-1)return dp[x][y];
+
+        int a=0;
+        int b=0;
+
+        //down
+        if(valid(x,y+1,m,n)){
+             a=solvemem(x,y+1,m,n,dp);  
+        }
+        //right
+        if(valid(x+1,y,m,n)){
+            b=solvemem(x+1,y,m,n,dp); 
+        }
+        return dp[x][y]=a+b;
+    }
+
+    int uniquePaths(int m, int n) {
+        vector<vector<int>>dp(m+1,vector<int>(n+1,-1));
+        return solvemem(0,0,m,n,dp);  
+    }
+};
