@@ -1,0 +1,70 @@
+class Solution {
+public:
+    //function to insert at tail
+    void insertattail(Node* &head,Node* &tail,int data){
+        Node* k=new Node(data);
+        if(head==NULL){
+            head=k;
+            tail=k;
+            return;
+        }
+        tail->next=k;
+        tail=k;
+    }
+
+    Node* copyRandomList(Node* head) {
+        Node* clonehead=NULL;
+        Node* clonetail=NULL;
+        Node* temp=head;
+
+        //creating clone list
+        while(temp!=NULL){
+            insertattail(clonehead,clonetail,temp->val);
+            temp=temp->next;
+        }
+        //changing all the pointers as per requirement
+        Node* org=head;
+        Node* cln=clonehead;
+
+        while(org!=NULL && cln!=NULL){
+            //changing original list
+            Node* b=org->next;
+            org->next=cln;
+            org=b;
+            //changing clone list
+            b=cln->next;
+            cln->next=org;
+            cln=b;
+        }
+        //copying random pointers
+        org=head;
+        cln=clonehead;
+
+        while(org!=NULL && cln!=NULL){
+           if(org->random!=NULL){
+                  cln->random=org->random->next;
+            }
+            else{
+                cln->random=org->random;
+            }
+        
+            org=org->next->next;
+            if(cln->next!=NULL)cln=cln->next->next;
+        }
+        //changing pointers back to original
+        Node* original=head;
+        Node* copy=clonehead;
+        
+        while(original!=NULL && copy!=NULL){
+            if(original->next!=NULL){
+                original->next=original->next->next;
+            }
+            if(copy->next!=NULL){
+                copy->next=copy->next->next;
+            }
+            original=original->next;
+            copy=copy->next;
+        }
+        return clonehead;
+    }
+};
