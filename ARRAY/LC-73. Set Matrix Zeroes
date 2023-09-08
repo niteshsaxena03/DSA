@@ -1,0 +1,30 @@
+class Solution {
+public:
+    void makezero(vector<vector<int>>& matrix,int row,int col,int i,int j){
+         for(int k=0;k<row;k++){
+             if(matrix[k][j]!=0)matrix[k][j]=INT_MAX-100;
+         }
+         for(int l=0;l<col;l++){
+             if(matrix[i][l]!=0)matrix[i][l]=INT_MAX-100;
+         }
+    }
+    void final(vector<vector<int>>& matrix,int row,int col){
+        for(int i=0;i<row;i++){
+            for(int j=0;j<col;j++){
+                if(matrix[i][j]==INT_MAX-100)matrix[i][j]=0;
+            }
+        }
+    }
+
+    void setZeroes(vector<vector<int>>& matrix) {
+        int row=matrix.size();
+        int col=matrix[0].size();
+        
+        for(int i=0;i<row;i++){
+            for(int j=0;j<col;j++){
+                if(matrix[i][j]==0)makezero(matrix,row,col,i,j);
+            }
+        }
+        final(matrix,row,col);
+    }
+};
