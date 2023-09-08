@@ -1,11 +1,11 @@
 class Solution {
 public:
     void makezero(vector<vector<int>>& matrix,int row,int col,int i,int j){
-         for(int k=0;k<row;k++){
-             if(matrix[k][j]!=0)matrix[k][j]=INT_MAX-100;
+         for(int r=0;r<row;r++){
+             if(matrix[r][j]!=0)matrix[r][j]=INT_MAX-100;
          }
-         for(int l=0;l<col;l++){
-             if(matrix[i][l]!=0)matrix[i][l]=INT_MAX-100;
+         for(int c=0;c<col;c++){
+             if(matrix[i][c]!=0)matrix[i][c]=INT_MAX-100;
          }
     }
     void final(vector<vector<int>>& matrix,int row,int col){
