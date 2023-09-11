@@ -1,15 +1,21 @@
 class Solution {
 public:
-    void bubblesort(vector<int>&arr,int n){
-        if(n==0)return;
-
-        for(int i=0;i<n-1;i++){
-            if(arr[i]>arr[i+1])swap(arr[i],arr[i+1]);
-        }
-        bubblesort(arr,n-1);
-    }
-
     void sortColors(vector<int>& nums) {
-        bubblesort(nums,nums.size());
+        //dutch national flag algo
+        int low=0,mid=0,high=nums.size()-1;
+        
+        while(mid<=high){
+            if(nums[mid]==0){
+                swap(nums[mid],nums[low]);
+                low++;
+                mid++;
+            }
+            else if(nums[mid]==1)mid++;
+
+            else{
+                swap(nums[mid],nums[high]);
+                high--;
+            }
+        }
     }
 };
