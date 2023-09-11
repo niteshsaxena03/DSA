@@ -1,0 +1,26 @@
+class Solution {
+public:
+    void nextPermutation(vector<int>& nums) {
+        int c=INT_MAX-100;
+        int n=nums.size();
+        //finding index to swap
+        for(int i=n-2;i>=0;i--){
+            if(nums[i]<nums[i+1]){
+                c=i;
+                break;
+            }
+        }
+        //if nothing to swap
+        if(c==INT_MAX-100)reverse(nums.begin(),nums.end());
+
+        //swapping,finally
+        for(int i=n-1;i>=c;i--){
+            if(nums[i]>nums[c]){
+                swap(nums[i],nums[c]);
+                break;
+            }
+        }
+        //final reversing
+        reverse(nums.begin()+c+1,nums.end());
+    }
+};
