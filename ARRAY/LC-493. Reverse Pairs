@@ -1,0 +1,43 @@
+class Solution {
+public:
+    void merge(vector<int>&nums,int low,int mid,int high){
+        int n=high-low+1;
+        int i=low,j=mid+1,k=0;
+        vector<int>ans(n,0);
+        while(i<=mid && j<=high){
+            if(nums[i]<nums[j])ans[k++]=nums[i++];
+            else ans[k++]=nums[j++];
+        }
+        while(i<=mid)ans[k++]=nums[i++];
+        while(j<=high)ans[k++]=nums[j++];
+        //changing original array to make it sorted
+        for(int i=low;i<=high;i++)nums[i]=ans[i-low];
+    }
+    //this function will count all possible pairs satifying given condition after every mergesort step
+    int countpairs(vector<int>&nums,int low,int mid,int high){
+        int j=mid+1;
+        int count=0;
+        for(int i=low;i<=mid;i++){
+            while(j<=high && nums[i]>2*(long long )nums[j])j++;
+            count+=j-mid-1;
+        }
+        return count;
+    }
+    int mergesort(vector<int>&nums,int low,int high){
+        int count=0;
+        int mid=low+(high-low)/2;
+        if(low>=high)return count;
+        //storing the count at every merge sort step
+        count+=mergesort(nums,low,mid);
+        count+=mergesort(nums,mid+1,high);
+        count+=countpairs(nums,low,mid,high);
+        //merging to make sorted array
+        merge(nums,low,mid,high);
+        return count;
+
+    }
+
+    int reversePairs(vector<int>& nums) {
+        return mergesort(nums,0,nums.size()-1);
+    }
+};
