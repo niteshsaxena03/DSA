@@ -1,0 +1,40 @@
+class Solution {
+public:
+    long long maximumSumOfHeights(vector<int>&arr) {
+        int n=arr.size();
+        //first calculate previous smaller element
+        stack<int>s1;
+        vector<int>prevsmaller(n,-1);//only index will be inserted 
+        for(int i=0;i<n;i++){
+            while(!s1.empty()&& arr[s1.top()]>=arr[i])s1.pop();
+            if(!s1.empty())prevsmaller[i]=s1.top();
+            s1.push(i);//pushing next index
+        }
+        //calculatin next smaller element
+        stack<int>s2;
+        vector<int>nextsmaller(n,-1);//only index
+        for(int i=n-1;i>=0;i--){
+            while(!s2.empty() && arr[s2.top()]>=arr[i])s2.pop();
+            if(!s2.empty())nextsmaller[i]=s2.top();
+            s2.push(i);//pushing next index
+        }
+        //calculting prefix sum
+        vector<long long>prefixsum(n);
+        for(int i=0;i<n;i++){
+            if(prevsmaller[i]==-1)prefixsum[i]=(long long)arr[i]*(i+1);
+            else prefixsum[i]=(long long)arr[i]*(i-prevsmaller[i])+prefixsum[prevsmaller[i]];
+        }
+        //calculating suffix sum
+        vector<long long>suffixsum(n);
+        for(int i=n-1;i>=0;i--){
+            if(nextsmaller[i]==-1)suffixsum[i]=(long long)arr[i]*(n-i);
+            else suffixsum[i]=(long long)arr[i]*(nextsmaller[i]-i)+suffixsum[nextsmaller[i]];
+        }
+        //final calculation
+        long long int ans=0;
+        for(int i=0;i<n;i++){
+            ans=max(ans,prefixsum[i]+suffixsum[i]-arr[i]);
+        }
+        return ans;
+    }
+};
