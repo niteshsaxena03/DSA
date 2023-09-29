@@ -1,0 +1,16 @@
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        int ans=0;
+        if(s.size()==0)return 0;
+        int p1,p2=0;0;
+        vector<int>map(256,-1);//to store values at index
+        for(p2=0;p2<s.size();p2++){
+            if(map[s[p2]]>=p1)p1=map[s[p2]]+1;
+            map[s[p2]]=p2;
+            ans=max(ans,p2-p1+1);
+        }   
+        
+        return ans;
+    }
+};
