@@ -1,0 +1,15 @@
+class Solution {
+public:
+    void solve(TreeNode* root,vector<int>&ans){
+        if(root==NULL)return;
+        ans.push_back(root->val);//N
+        solve(root->left,ans);//L
+        solve(root->right,ans);//R
+    }
+
+    vector<int> preorderTraversal(TreeNode* root) {
+        vector<int>ans;
+        solve(root,ans);
+        return ans;
+    }
+};
