@@ -1,0 +1,22 @@
+class Solution {
+public:
+    string reverseWords(string s) {
+        string ans="";
+        if(s.size()==0)return ans;
+        int i=0;
+        while(i<s.size()){
+            string temp="";
+            while(s[i]==' ' && i<s.size())i++;
+
+            while(s[i]==' ' && i<s.size()){
+                temp.push_back(s[i]);
+                i++;
+            }
+            if(temp.size()>0){
+                if(ans.size()==0)ans=temp;
+                else ans=temp+" "+ans;
+            }
+        }
+        return ans;
+    }
+};
