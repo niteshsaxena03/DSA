@@ -1,30 +1,38 @@
 class Solution {
 public:
-    void makezero(vector<vector<int>>& matrix,int row,int col,int i,int j){
-         for(int r=0;r<row;r++){
-             if(matrix[r][j]!=0)matrix[r][j]=INT_MAX-100;
-         }
-         for(int c=0;c<col;c++){
-             if(matrix[i][c]!=0)matrix[i][c]=INT_MAX-100;
-         }
-    }
-    void final(vector<vector<int>>& matrix,int row,int col){
+    void makezero(vector<vector<int>>& matrix,int l,int row,int col){
         for(int i=0;i<row;i++){
             for(int j=0;j<col;j++){
-                if(matrix[i][j]==INT_MAX-100)matrix[i][j]=0;
+                if(matrix[i][j]==l)matrix[i][j]=0;
             }
         }
+    }
+    void changerc(vector<vector<int>>& matrix,int i,int j,int l,int row,int col){
+           
+           //changing row
+           for(int p=0;p<col;p++){
+              if(matrix[i][p]!=0)matrix[i][p]=l; 
+           }
+           //changing col
+           for(int q=0;q<row;q++){
+              if(matrix[q][j]!=0)matrix[q][j]=l;
+           }
     }
 
     void setZeroes(vector<vector<int>>& matrix) {
+        int l=INT_MAX-100;
         int row=matrix.size();
         int col=matrix[0].size();
-        
+      
+
         for(int i=0;i<row;i++){
-            for(int j=0;j<col;j++){
-                if(matrix[i][j]==0)makezero(matrix,row,col,i,j);
-            }
+          for(int j=0;j<col;j++){
+              if(matrix[i][j]==0){
+                changerc(matrix,i,j,l,row,col);
+              }
+          }
         }
-        final(matrix,row,col);
+        //final work
+        makezero(matrix,l,row,col);
     }
 };
