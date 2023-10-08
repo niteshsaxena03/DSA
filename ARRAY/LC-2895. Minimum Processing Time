@@ -1,0 +1,15 @@
+class Solution {
+public:
+    int minProcessingTime(vector<int>& pt, vector<int>& t) {
+        sort(pt.begin(),pt.end());
+        sort(t.rbegin(),t.rend());
+        int j=0;
+        int ans=0;
+
+        for(auto i:pt){
+            ans=max(ans,t[j]+i);
+            j+=4;
+        }
+       return ans;
+    }
+};
