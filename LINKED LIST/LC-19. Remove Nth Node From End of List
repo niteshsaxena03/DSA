@@ -26,6 +26,7 @@ public:
 
 
 //my method
+
 class Solution {
 public:
     int len(ListNode* root){
