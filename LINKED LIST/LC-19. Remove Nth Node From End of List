@@ -1,3 +1,5 @@
+//striver method
+
 class Solution {
 public:
     ListNode* removeNthFromEnd(ListNode* head, int n) {
@@ -19,5 +21,38 @@ public:
         delete(del);
         return head;
 
+    }
+};
+
+
+//my method
+class Solution {
+public:
+    int len(ListNode* root){
+        ListNode* temp=root;
+        int count=1;
+        while(temp->next!=NULL){
+            count++;
+            temp=temp->next;
+        }
+        return count;
+    }
+
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        ListNode* curr=head;
+        int p=len(head);
+        if(head==NULL ||p==1)return NULL;
+        int count=1;
+        int index=p-n;
+        if(index==0)return head->next;
+        while(count<index){
+            curr=curr->next;
+            count++;
+        }
+       
+        ListNode* k=curr->next;
+        curr->next=curr->next->next;
+        delete(k);
+        return head;
     }
 };
