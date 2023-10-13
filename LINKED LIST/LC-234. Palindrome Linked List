@@ -1,18 +1,42 @@
 class Solution {
 public:
-bool checkpalindrome(vector<int>arr){
-    vector<int>ans;
-    ans=arr;
-    reverse(arr.begin(),arr.end());
-    return ans==arr;
-}
-    bool isPalindrome(ListNode* head) {
-        vector<int>brr;
-        ListNode* curr=head;
+    ListNode* reverse(ListNode* root){
+        ListNode* curr=root;
+        ListNode* prev=NULL;
+        
         while(curr!=NULL){
-            brr.push_back(curr->val);
-            curr=curr->next;
+            ListNode* k=curr->next;
+            curr->next=prev;
+            prev=curr;
+            curr=k;
         }
-        return checkpalindrome(brr);
+        return prev;
+    }
+    
+    
+    
+    bool isPalindrome(ListNode* head) {
+        if(head==NULL||head->next==NULL)return true;
+        ListNode* slow=head;
+        ListNode* fast=head->next;
+        
+        //reaching middle
+        while(fast!=NULL && fast->next!=NULL){
+            slow=slow->next;
+            fast=fast->next->next;
+            }
+        ListNode* k=slow->next;
+        slow->next=NULL;
+        
+        ListNode* p=reverse(k);
+        
+        ListNode* temp=head;
+        
+        while(temp&&p){
+            if(temp->val!=p->val)return false;
+            temp=temp->next;
+            p=p->next;
+        }
+        return true;
     }
 };
