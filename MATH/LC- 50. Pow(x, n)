@@ -2,14 +2,16 @@ class Solution {
 public:
     double myPow(double x, int n) {
         if(n==0)return 1;
-        if(n<0)x=1/x;//for negative number
-        n=abs(n);//positive power only
+        if(n<0){
+            x=1/x;
+            n=abs(n);
+        }
         double ans=1;
-        //loop going downwards like recursion
+        
         while(n>0){
-            if(n&1)ans*=x;//if odd power
-            x*=x;//in
-            n=n>>1;//faster than n/2
+            if(n&1)ans*=x;
+            x*=x;
+            n/=2;
         }
         return ans;
     }
