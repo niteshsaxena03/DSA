@@ -1,30 +1,27 @@
 class Solution {
 public:
-ListNode* hasCycle(ListNode *head) {
+    ListNode* cycle(ListNode* head){
         ListNode* slow=head;
         ListNode* fast=head;
-
-        while( fast!=NULL && fast->next!=NULL){
+        
+        while(fast!=NULL && fast->next!=NULL){
             slow=slow->next;
             fast=fast->next->next;
-
-            if(slow==fast){
-                return slow;
-                break;
-            }
+            
+            if(slow==fast)return slow;
         }
         return NULL;
     }
+    
     ListNode *detectCycle(ListNode *head) {
-        if(head==NULL)return NULL;
-        ListNode* inter=hasCycle(head);
-        if(inter==NULL)return NULL;
-        ListNode* slow=head;
-
-        while(slow!=inter){
-            slow=slow->next;
-            inter=inter->next;
+        ListNode* k=head;
+        ListNode* l=cycle(head);
+        
+        if(l==NULL)return NULL;
+        while(k!=l){
+            k=k->next;
+            l=l->next;
         }
-        return slow;
+        return k;
     }
 };
