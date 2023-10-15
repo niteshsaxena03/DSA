@@ -1,0 +1,21 @@
+class Solution {
+public:
+    string shortestBeautifulSubstring(string s, int k) {
+        //sliding window
+
+        int n=s.size();
+        string ans(n+1,'1');
+
+        for(int i=0;i<n;i++){
+            //creating new window every time
+            for(int j=1;j<=n-i;j++){
+                string temp=s.substr(i,j);
+                if(count(temp.begin(),temp.end(),'1')==k){
+                    if(ans.size()==temp.size())ans=min(ans,temp);
+                    else ans=ans.size()>temp.size()?temp:ans;
+                }
+            }
+        }
+        return ans==string(n+1,'1')?"":ans;
+    }
+};
