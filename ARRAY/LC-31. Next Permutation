@@ -1,26 +1,30 @@
 class Solution {
 public:
     void nextPermutation(vector<int>& nums) {
-        int c=INT_MAX-100;
+        int index=INT_MAX-100;
         int n=nums.size();
-        //finding index to swap
+        //finding index which curve dips down
         for(int i=n-2;i>=0;i--){
             if(nums[i]<nums[i+1]){
-                c=i;
+                index=i;
                 break;
             }
         }
-        //if nothing to swap
-        if(c==INT_MAX-100)reverse(nums.begin(),nums.end());
+        //if found nothing-->descending order
+        if(index==INT_MAX-100){
+            reverse(nums.begin(),nums.end());
+            return;
+        }
 
-        //swapping,finally
-        for(int i=n-1;i>=c;i--){
-            if(nums[i]>nums[c]){
-                swap(nums[i],nums[c]);
+        //swapping the index with a just greater element
+        for(int i=n-1;i>=index;i--){
+            if(nums[i]>nums[index]){
+                swap(nums[i],nums[index]);
                 break;
             }
+        
         }
-        //final reversing
-        reverse(nums.begin()+c+1,nums.end());
+        //reversing the right half to get the just greater permutation
+        reverse(nums.begin()+index+1,nums.end());
     }
 };
