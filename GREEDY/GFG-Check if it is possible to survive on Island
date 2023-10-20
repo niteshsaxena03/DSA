@@ -10,8 +10,10 @@ public:
         
         else ans=(foodReq/N)+1;
         
+        //possible to survive
         if(ans<=buyday)return ans;
         
+        //if more days are required than the given buying days->not possible to survive
         return -1;
     }
 };
