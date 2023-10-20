@@ -26,9 +26,8 @@ public:
                 ans+=valley;
                 i++;
             }
-        ans-=min(peak,valley);
+        ans-=min(peak,valley);//removing lower peak
         }
-   
-        return ans;
+     return ans;
     }
 };
