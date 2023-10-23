@@ -1,0 +1,34 @@
+class Solution
+{
+    public:
+    static bool cmp(pair<double,Item>a,pair<double,Item>b){
+        return a.first>b.first;
+    }
+    //Function to get the maximum total value in the knapsack.
+    double fractionalKnapsack(int W, Item arr[], int n)
+    {
+        vector<pair<double,Item>>ans;
+        double totalweight=0;
+        for(int i=0;i<n;i++){
+            double PUV=(double(arr[i].value))/arr[i].weight;
+            pair<double,Item>p={PUV,arr[i]};
+            ans.push_back(p);
+        }
+        sort(ans.begin(),ans.end(),cmp);
+        
+        for(int i=0;i<n;i++){
+            //check if weight is greater
+            if(ans[i].second.weight>W){
+                totalweight+=W*ans[i].first;
+                W=0;
+            }
+            //if weight is less than W
+            else{
+                totalweight+=ans[i].second.value;
+                W-=ans[i].second.weight;
+            }
+        }
+        return totalweight;
+    }
+        
+};
