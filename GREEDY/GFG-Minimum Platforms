@@ -1,0 +1,26 @@
+class Solution{
+    public:
+
+    int findPlatform(int arr[], int dep[], int n)
+    {
+      int count=1,ans=1;
+      sort(arr,arr+n);
+      sort(dep,dep+n);
+      
+    
+      int i=1,j=0;
+      while(i<n && j<n){
+         if(arr[i]>dep[j]){
+             count--;
+             j++;
+         }
+         else{
+             count++;
+             i++;
+         }
+         ans=max(ans,count);
+         
+      }
+      return ans;
+    }
+};
