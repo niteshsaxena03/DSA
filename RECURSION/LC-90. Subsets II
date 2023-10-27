@@ -1,0 +1,27 @@
+#include<algorithm>
+
+class Solution {
+public:
+    void solve(vector<int>& nums,int n,vector<vector<int>>&ans,vector<int>&temp,int index){
+        if(index==n){
+             if (std::find(ans.begin(),ans.end(),temp)==ans.end())ans.push_back(temp)
+             return;
+        }
+
+        //exclude
+        solve(nums,n,ans,temp,index+1);
+
+        //include
+        temp.push_back(nums[index]);
+        solve(nums,n,ans,temp,index+1);
+        temp.pop_back();
+    }
+
+    vector<vector<int>> subsetsWithDup(vector<int>& nums) {
+        sort(nums.begin(),nums.end());
+        vector<vector<int>>ans;
+        vector<int>temp;
+        solve(nums,nums.size(),ans,temp,0);
+        return ans;
+    }
+};
