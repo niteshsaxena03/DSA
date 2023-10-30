@@ -1,0 +1,28 @@
+class Solution {
+public:
+    void solve(vector<int>& candidates,int target,vector<vector<int>>&ans,vector<int>&temp,int index){
+        
+        if(target==0){
+            if(std::find(ans.begin(),ans.end(),temp)==ans.end())ans.push_back(temp);
+            return;
+        }
+        if(index==candidates.size()||target-candidates[index]<0)return;
+        
+        //include
+        temp.push_back(candidates[index]);
+        solve(candidates,target-candidates[index],ans,temp,index);
+        temp.pop_back();
+        
+        //exclude
+        solve(candidates,target,ans,temp,index+1);
+
+    }
+
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+       vector<vector<int>>ans;
+       vector<int>temp;
+       sort(candidates.begin(),candidates.end());
+       solve(candidates,target,ans,temp,0);
+       return ans;
+    }
+};
