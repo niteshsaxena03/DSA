@@ -1,62 +1,49 @@
 class Solution {
 public:
-    void add(vector<string>&board, vector<vector<string>>&ans,int n){
-        vector<string>temp;
-        for(int i=0;i<n;i++){
-            temp.push_back(board[i]);
+    void solve(int col,vector<string>&board,vector<vector<string>>&ans,vector<int>&leftrow,vector<int>&leftupperdiagonal,vector<int>&leftlowerdiagonal,int n){
+        //base case
+        if(col==n){
+            ans.push_back(board);
+            return;
         }
-        ans.push_back(temp);
-    }
-    bool valid(vector<string>&board,int n,int row,int col){
-        int x=row,y=col;
-
-        //checking same row
-        while(y>=0){
-            if(board[x][y]=='Q')return false;
-            y--;
-        }
-
-        //checking diagonals
-        x=row;
-        y=col;
-        while(x>=0 && y>=0){
-            if(board[x][y]=='Q')return false;
-            x--;
-            y--;
-        }
-        x=row;
-        y=col;
-        while(x<n && y>=0){
-            if(board[x][y]=='Q')return false;
-            x++;
-            y--;
-        }
-        return true;
-    }
-
-    void solve(vector<string>&board,vector<vector<string>>&ans,int n,int col){
-        if(col>=n){
-            add(board,ans,n);
-            return ;
-        }
-        for(int i=0;i<n;i++){
-            if(valid(board,n,i,col)){
-                board[i][col]='Q';
-                solve(board,ans,n,col+1);
+        //checking and filling board
+        for(int row=0;row<n;row++){
+            //checking if queen is there or not
+            if(leftrow[row]==0 && leftupperdiagonal[row+col]==0 && leftlowerdiagonal[col-row+n-1]==0){
+                board[row][col]='Q';
+                leftrow[row]=1;
+                leftupperdiagonal[row+col]=1;
+                leftlowerdiagonal[col-row+n-1]=1;
+                //recursive call
+                solve(col+1,board,ans,leftrow,leftupperdiagonal,leftlowerdiagonal,n);
                 //backtracking
-                board[i][col]='.';
+                board[row][col]='.';
+                leftrow[row]=0;
+                leftupperdiagonal[row+col]=0;
+                leftlowerdiagonal[col-row+n-1]=0;
             }
         }
     }
 
     vector<vector<string>> solveNQueens(int n) {
-        string x="";
-        for(int i=0;i<n;i++){
-            x+='.';
-        }
-        vector<string>board(n,x);
         vector<vector<string>>ans;
-        solve(board,ans,n,0);
+        vector<string>board(n);
+
+        string s(n,'.');
+        //filling board array initially
+        for(int i=0;i<n;i++){
+            board[i]=s;
+        }
+        //creating map for storing left row
+        vector<int>leftrow(n,0);
+        //creating map for left upper diagonal
+        vector<int>leftupperdiagonal(2*n-1,0);
+        //creating map for storing left lower diagonal
+        vector<int>leftlowerdiagonal(2*n-1,0);
+        
+        //final function
+        solve(0,board,ans,leftrow,leftupperdiagonal,leftlowerdiagonal,n);
         return ans;
+
     }
 };
