@@ -1,0 +1,47 @@
+class Solution {
+public:
+    int numBusesToDestination(vector<vector<int>>& routes, int source, int target) {
+        if(source==target)return 0;
+
+        unordered_map<int,vector<int>>adjlist;
+        //adjlist for every stop
+        for(int route=0;route<routes.size();route++){
+            for(auto stop:routes[route])adjlist[stop].push_back(route);
+        }
+
+        //queue for bfs and visited for tracking
+        queue<int>q;
+        unordered_set<int>vis;
+
+        //insert all nodes with source as a stop
+        for(auto route:adjlist[source]){
+             q.push(route);
+             vis.insert(route);
+        }
+        //tracking bus count
+        int buscount=1;
+
+        while(!q.empty()){
+            int n=q.size();
+
+            for(int i=0;i<n;i++){
+                int route=q.front();
+                q.pop();
+
+                for(auto stop:routes[route]){
+                    if(stop==target)return buscount;
+
+                    //fill others
+                    for(auto next:adjlist[stop]){
+                        if(!vis.count(next)){
+                            q.push(next);
+                            vis.insert(next);
+                        }
+                    }
+                }
+            }
+            buscount++;
+        }
+        return -1;
+    }
+};
