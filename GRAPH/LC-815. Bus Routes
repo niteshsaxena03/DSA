@@ -1,6 +1,6 @@
 class Solution {
 public:
-    int numBusesToDestination(vector<vector<int>>& routes, int source, int target) {
+    int numBusesToDestination(vector<vector<int>>& routes, int source, int target) {       //edge case
         if(source==target)return 0;
 
         unordered_map<int,vector<int>>adjlist;
@@ -31,7 +31,7 @@ public:
                 for(auto stop:routes[route]){
                     if(stop==target)return buscount;
 
-                    //fill others
+                    //fill others if target not found
                     for(auto next:adjlist[stop]){
                         if(!vis.count(next)){
                             q.push(next);
