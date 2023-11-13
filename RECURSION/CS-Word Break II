@@ -1,0 +1,26 @@
+#include <bits/stdc++.h> 
+void solve(string &s,vector<string> &dic,vector<string>&ans,string temp,int index){
+    if(index==s.size()){
+        ans.push_back(temp);
+        return;
+    }
+
+    //checking every substring
+    for(int i=index;i<s.size();i++){
+        string target=s.substr(index,i-index+1);
+        if(find(dic.begin(),dic.end(),target)!=dic.end()){
+            string news=temp+target+" ";
+            solve(s,dic,ans,news,i+1);
+        }
+    }
+}
+
+
+vector<string> wordBreak(string &s, vector<string> &dic)
+{
+    vector<string>ans;
+    string temp="";
+    solve(s,dic,ans,temp,0);
+    return ans;
+
+}
