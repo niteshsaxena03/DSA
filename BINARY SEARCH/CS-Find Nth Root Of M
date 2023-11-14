@@ -1,0 +1,16 @@
+int NthRoot(int n, int m) {
+  int s=0;
+  int e=m-1;
+  int mid=s+(e-s)/2;
+
+  while(s<=e){
+    double temp=pow(mid,n);
+
+    if(temp==m)return mid;
+    else if(temp>m)e=mid-1;
+    else s=mid+1;
+
+    mid=s+(e-s)/2;
+  }
+  return -1;
+}
