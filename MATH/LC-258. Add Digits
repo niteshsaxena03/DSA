@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int sum(int n){
+        int ans=0;
+        while(n!=0){
+            int j=n%10;
+            ans+=j;
+            n/=10;
+        }
+        return ans;
+    }
+    
+    int addDigits(int num) {
+        int sumi=sum(num);
+        if(sumi<10)return sumi;
+        else{
+            num=sum(num);
+            return addDigits(num);
+        }
+      
+    }
+};
