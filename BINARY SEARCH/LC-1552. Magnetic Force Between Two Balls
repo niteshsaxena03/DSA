@@ -1,0 +1,35 @@
+class Solution {
+public:
+    bool isPossible(vector<int>& position, int m,int mid){
+        int count=1;
+        int pos=position[0];
+        for(auto i:position){
+            if(i-pos>=mid){
+                count++;
+                if(count==m)return true;
+                pos=i;
+            }
+        }
+        return false;
+    }
+
+    int maxDistance(vector<int>& position, int m) {
+        sort(position.begin(),position.end());
+        int s=0;
+        int n=position.size();
+        int e=position[n-1];
+
+        int mid=s+(e-s)/2;
+        int ans=INT_MAX;
+
+        while(s<=e){
+            if(isPossible(position,m,mid)){
+                ans=mid;
+                s=mid+1;
+            }
+            else e=mid-1;
+            mid=s+(e-s)/2;
+        }
+        return ans;
+    }
+};
