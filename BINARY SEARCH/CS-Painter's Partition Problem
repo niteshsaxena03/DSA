@@ -1,0 +1,49 @@
+#include<vector>
+using namespace std;
+
+bool isPossible(vector<int> &boards, int k,int  mid){
+   int paintercount = 1;
+   int paintsum = 0;
+   for(int i =0;i<boards.size();i++){
+       if(paintsum +boards[i] <=mid){
+           paintsum +=boards[i];
+       }
+
+       else{
+           paintercount ++;
+           if(paintercount>k || boards[i]>mid){
+               return false;
+           }
+           paintsum = boards[i];
+           
+       }
+   }
+   return true;
+}
+ 
+int findLargestMinDistance(vector<int> &boards, int k)
+{
+ 
+   int s = 0;
+   int sum = 0;
+   for(int i =0;i<boards.size();i++){
+       sum +=boards[i];
+   }
+   int end =sum;
+   int mid = s+(end-s)/2;
+   int ans= -1;
+   while(s<=end){
+       if(isPossible(boards,k,mid)){
+           ans = mid;
+           end = mid-1;
+           
+       }
+       else{
+           s = mid+1;
+       }
+       mid = s+(end-s)/2;
+      
+   
+}
+    return ans;
+}
