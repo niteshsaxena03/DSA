@@ -1,0 +1,25 @@
+vector<int> Solution::solve(vector<int> &A, vector<int> &B, int C) {
+    sort(A.begin(),A.end(),greater<int>());
+    sort(B.begin(),B.end(),greater<int>());
+    priority_queue<pair<int,pair<int,int>>>pq;
+    set<pair<int,int>>s;
+    vector<int>ans;
+    int n=A.size();
+    pq.push({A[0]+B[0],{0,0}});
+    
+    for(int i=0;i<C;i++){
+        pair<int,pair<int,int>>temp=pq.top();
+        pq.pop();
+        ans.push_back(temp.first);
+        
+        if(temp.second.first+1<n && s.find({temp.second.first+1,temp.second.second})==s.end()){
+            pq.push({A[temp.second.first+1]+B[temp.second.second],{temp.second.first+1,temp.second.second}});
+            s.insert({temp.second.first+1,temp.second.second});
+        }
+        if(temp.second.second+1<n && s.find({temp.second.first,temp.second.second+1})==s.end()){
+            pq.push({A[temp.second.first]+B[temp.second.second+1],{temp.second.first,temp.second.second+1}});
+            s.insert({temp.second.first,temp.second.second+1});
+        }
+    }
+    return ans;
+}
