@@ -1,18 +1,19 @@
-//User function Template for C++
+#include <bits/stdc++.h> 
+#include<queue>
+
 class node{
     public:
     int data;
-    int i;
-    int j;
-    
-    node(int data,int R,int C){
+    int row;
+    int col;
+   
+    node(int data,int row,int col){
         this->data=data;
-        i=R;
-        j=C;
-        
-    
+        this->row=row;
+        this->col=col;
     }
 };
+
 class compare{
     public:
     bool operator()(node* a,node* b){
@@ -20,31 +21,31 @@ class compare{
     }
 };
 
-class Solution
+vector<int> mergeKSortedArrays(vector<vector<int>>&kArrays, int k)
 {
-    public:
-    //Function to merge k sorted arrays.
-    vector<int> mergeKArrays(vector<vector<int>> arr, int K)
-    {
-     priority_queue<node*,vector<node*>,compare>q;
-     
-     for(int i=0;i<K;i++){
-         node* p=new node(arr[i][0],i,0);
-         q.push(p);
-     }
-     vector<int>ans;
-     while(!q.empty()){
-         node *l=q.top();
-         q.pop();
-         
-         ans.push_back(l->data);
-         int i=l->i;
-         int j=l->j;
-         
-         if(j+1<arr[i].size()){
-             q.push(new node(arr[i][j+1],i,j+1));
-         }
-     }
-     return ans;
-    }
-};
+    
+  priority_queue<node*,vector<node*>,compare>pq;
+
+  vector<int>ans;
+
+  for(int i=0;i<k;i++){
+      node* temp=new node(kArrays[i][0],i,0);
+      pq.push(temp);
+  }
+
+  while(!pq.empty()){
+      node* top=pq.top();
+      pq.pop();
+
+      ans.push_back(top->data);
+
+      int col=top->col;
+      int row=top->row;
+
+      if(col+1<kArrays[row].size()){
+          node* newnode=new node(kArrays[row][col+1],row,col+1);
+          pq.push(newnode);
+      }
+  }
+  return ans;
+}
