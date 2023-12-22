@@ -1,0 +1,49 @@
+// Stack class.
+class Stack {
+    
+public:
+    int capacity;
+    int* stack;
+    int topi;
+    Stack(int capacity) {
+        this->capacity=capacity;
+        topi=-1;
+        stack=new int[capacity];
+    }
+
+  
+
+    void push(int num) {
+        if(topi==(capacity-1))return;
+        else{
+            topi++;
+            stack[topi]=num;
+         
+        }
+    }
+
+    int pop() {
+        if(topi==-1)return -1;
+        else{
+           int ans=stack[topi];
+           topi--; 
+           return ans;
+        }
+    }
+    
+    int top() {
+        if(topi==-1)return -1;
+        else return stack[topi];
+    }
+    
+    int isEmpty() {
+        if(topi==-1)return true;
+        else return false;
+    }
+    
+    int isFull() {
+        if(topi==capacity-1)return true;
+        else return false;
+    }
+    
+};
