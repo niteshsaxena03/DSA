@@ -1,0 +1,48 @@
+class MyStack {
+private:
+void reverse(queue<int>&qq){
+    stack<int>s;
+    while(!qq.empty()){
+        s.push(q.front());
+        q.pop();
+    }
+    while(!s.empty()){
+        q.push(s.top());
+        s.pop();
+    }
+}
+public:
+    queue<int>q;
+    int topi;
+    MyStack() {
+        topi=-1;
+   
+    }
+    
+    void push(int x) {
+        reverse(q);
+        q.push(x);
+        reverse(q);
+        topi++;
+    }
+    
+    int pop() {
+        if(topi==-1)return -1;
+        else{
+            int ans=q.front();
+            q.pop();
+            return ans;
+            topi--;
+        }
+    }
+    
+    int top() {
+        if(topi==-1)return -1;
+        return q.front();
+    }
+    
+    bool empty() {
+        if(q.size()==0)return true;
+        return false;
+    }
+};
