@@ -1,0 +1,49 @@
+class Solution {
+public:
+    vector<int>nextsmallerelement(vector<int>& heights){
+        int n=heights.size();
+        stack<int>s;
+        vector<int>ans(n,-1);
+
+        for(int i=n-1;i>=0;i--){
+            while(!s.empty() && heights[s.top()]>=heights[i])s.pop();
+            if(!s.empty())ans[i]=s.top();
+            s.push(i);
+        }
+        return ans;
+    }
+
+    vector<int>prevsmallerelement(vector<int>&heights){
+        int n=heights.size();
+        stack<int>s;
+        vector<int>ans(n,-1);
+
+        for(int i=0;i<n;i++){
+            while(!s.empty() && heights[s.top()]>=heights[i])s.pop();
+            if(!s.empty())ans[i]=s.top();
+            s.push(i);
+        }
+        return ans;
+    }
+
+    int largestRectangleArea(vector<int>& heights) {
+        int n=heights.size();
+        int finalArea=INT_MIN;
+        vector<int>psm(n);
+        vector<int>nsm(n);
+
+        psm=prevsmallerelement(heights);
+        nsm=nextsmallerelement(heights);
+        
+        for(int i=0;i<n;i++){
+            int length=heights[i];
+            if(nsm[i]==-1)nsm[i]=n;
+            int breadth=nsm[i]-psm[i]-1;
+
+            int area=length*breadth;
+
+            finalArea=max(finalArea,area);
+        }
+        return finalArea;
+    }
+};
