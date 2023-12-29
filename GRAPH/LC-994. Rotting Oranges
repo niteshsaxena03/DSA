@@ -1,0 +1,52 @@
+class Solution {
+public:
+    int orangesRotting(vector<vector<int>>& grid) {
+        int n=grid.size();
+        int m=grid[0].size();
+        int time=0;
+        int visited[n][m];
+        
+        queue<pair<pair<int,int>,int>>q;
+        //initializing visited array and queue for bfs
+
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(grid[i][j]==2){
+                    q.push({{i,j},0});
+                    visited[i][j]=1;
+                }
+                else visited[i][j]=0;
+            }
+        }
+        //now using bfs
+        int deltaRow[]={-1,0,1,0};
+        int deltaColumn[]={0,-1,0,1};
+
+        while(!q.empty()){
+            int row=q.front().first.first;
+            int col=q.front().first.second;
+            int newtime=q.front().second;
+            q.pop();
+            time=max(time,newtime);
+
+            for(int i=0;i<4;i++){
+                int newRow=row+deltaRow[i];
+                int newColumn=col+deltaColumn[i];
+                //checking for fresh orange
+                if(newRow>=0 && newRow<n && newColumn>=0 && newColumn<m && visited[newRow][newColumn]!=2 && grid[newRow][newColumn]==1){
+                q.push({{newRow,newColumn},newtime+1});
+                visited[newRow][newColumn]=2;
+                }
+            }
+        }
+        //checking if all oranges are rotten at end or not
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(visited[i][j]!=2 && grid[i][j]==1){
+                    return -1;
+                }
+            }
+        }
+        return time;
+    }
+};
