@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int repeatedStringMatch(string a, string b) {
+        string temp=a;
+        int count=1;
+        int p=a.size(),q=b.size();
+        while(temp.size()<q){
+            temp+=a;
+            count++;
+        }
+        if(temp.find(b)!=-1)return count;
+ 
+        //appending one last time
+        temp+=a;
+        if(temp.find(b)!=-1){
+            count++;
+            return count;
+        }
+       
+        return -1;
+    }
+};
