@@ -1,11 +1,50 @@
 class Solution {
 public:
-    int strStr(string haystack, string needle) {
-       int n=needle.size();
-        for(int i=0;i<haystack.size();i++){
-            string s=haystack.substr(i,n);
-           if(s==needle)return i;
+    vector<int>Zalgo(string temp){
+        int n=temp.size();
+        vector<int>Z(n,0);
+
+        int left=0,right=0;
+        int i=0;
+        for(;i<n;i++){
+            //if i is outside the range
+            if(i>right){
+              left=right=i;
+              while(right<n && temp[right-left]==temp[right])right++;
+              Z[i]=right-left;
+              right--; //decreasing due to an extra character
+            }
+            else{
+                //checking if i is inside the range
+                int index=i-left;
+                if(i+Z[index]<right+1)Z[i]=Z[index];//using the value of same prefix
+                else{
+                    //increasing right to increase the range
+                    left=i;
+                    while(right<n && temp[right-left]==temp[right])right++;
+                    Z[i]=right-left;
+                    right--;
+                }
+            }
         }
-       return -1;
+        return Z;
+    }
+
+    int strStr(string haystack, string needle) {
+        int n=haystack.size();
+        int m=needle.size();
+        if(m==0)return 0;
+        //creating a new string for Z algo
+        string temp=needle+"#"+haystack;
+
+        //making Z array
+        vector<int>Zarray;
+        Zarray=Zalgo(temp);
+
+        //finding index
+        for(int i=0;i<temp.size();i++){
+            if(Zarray[i]==m)return i-m-1;
+        }
+        return -1;
     }
 };
