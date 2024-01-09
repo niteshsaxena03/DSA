@@ -1,0 +1,16 @@
+class Solution {
+public:
+    bool isAnagram(string s, string t) {
+        if(s.size()!=t.size())return false;
+        unordered_map<char,int>maps;
+        unordered_map<char,int>mapt;
+
+        for(auto i:s)maps[i]++;
+        for(auto i:t)mapt[i]++;
+
+        for(int i=0;i<maps.size();i++){
+            if(maps[i]!=mapt[i])return false;
+        }
+        return true;
+    }
+};
