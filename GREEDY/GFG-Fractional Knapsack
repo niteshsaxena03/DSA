@@ -15,7 +15,6 @@ class Solution
             ans.push_back(p);
         }
         sort(ans.begin(),ans.end(),cmp);
-        
         for(int i=0;i<n;i++){
             //check if weight is greater
             if(ans[i].second.weight>W){
@@ -29,6 +28,5 @@ class Solution
             }
         }
         return totalweight;
-    }
-        
+    }  
 };
