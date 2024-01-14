@@ -7,7 +7,6 @@ public:
     }
     return true;
    }
-
     void solve(string s,vector<vector<string>>&ans,vector<string>&temp,int index){
         if(index==s.size()){
             ans.push_back(temp);
@@ -21,7 +20,6 @@ public:
             }
         }
     }
-
     vector<vector<string>> partition(string s) {
 
         vector<vector<string>>ans;
