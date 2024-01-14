@@ -22,7 +22,6 @@ class Solution{
             if(mid2<m)r2=arr2[mid2];
             
             if(l1<=r2 && l2<=r1)return max(l1,l2);
-            
             else if(l1>r2)e=mid1-1;
             else s=mid1+1;
             
