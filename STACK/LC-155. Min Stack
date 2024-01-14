@@ -23,14 +23,10 @@ public:
     }
     
     void pop() {
-
-
         long long top=s.top();
         s.pop();
 
-        if(top<mini){
-            mini=2*mini-top;
-        }
+        if(top<mini)mini=2*mini-top;
     }
     
     int top() {
