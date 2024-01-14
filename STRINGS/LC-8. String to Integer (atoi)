@@ -3,14 +3,11 @@ public:
     bool number(char num){
         return num>='0' && num<='9';
     }
-
     int myAtoi(string s) {
         int n=s.size();
         if(n==0)return 0;
-        
-         int i=0;
+        int i=0;
         //skipping white spaces
-       
         while(i<n && s[i]==' ')i++;
 
         //checking the sign of final answer
@@ -27,10 +24,8 @@ public:
         while(i<n && number(s[i])){
             int digit=s[i]-'0';
             //handling int range
-            if(ans>INT_MAX/10||ans==INT_MAX/10 && digit>7){
-                return (sign==-1)?INT_MIN:INT_MAX;
-            }
-            ans=ans*10+digit;
+            if(ans>INT_MAX/10||ans==INT_MAX/10 && digit>7)return (sign==-1)?INT_MIN:INT_MAX;
+            ans=(ans*10)+digit;
             ++i;
         }
         return ans*sign;
