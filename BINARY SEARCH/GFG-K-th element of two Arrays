@@ -8,7 +8,6 @@ class Solution{
         int s=max(0,k-m);
         int e=min(k,n);
         int mid1=s+(e-s)/2;
-        
         int mid2=k-mid1;
         
         while(s<=e){
@@ -19,7 +18,6 @@ class Solution{
             
             if(mid1-1>=0)l1=arr1[mid1-1];
             if(mid2-1>=0)l2=arr2[mid2-1];
-            
             if(mid1<n)r1=arr1[mid1];
             if(mid2<m)r2=arr2[mid2];
             
