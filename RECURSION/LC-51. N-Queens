@@ -1,6 +1,7 @@
 class Solution {
 public:
-    void solve(int col,vector<string>&board,vector<vector<string>>&ans,vector<int>&leftrow,vector<int>&leftupperdiagonal,vector<int>&leftlowerdiagonal,int n){
+    void solve(int col,vector<string>&board,vector<vector<string>>&ans,vector<int>&leftrow,vector<int>&leftupperdiagonal,
+vector<int>&leftlowerdiagonal,int n){
         //base case
         if(col==n){
             ans.push_back(board);
