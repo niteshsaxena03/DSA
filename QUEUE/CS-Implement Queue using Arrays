@@ -1,8 +1,6 @@
 class Queue {
-
 	int front, rear;
 	vector<int> arr;
-
 public:
 	Queue()
 	{
@@ -26,8 +24,6 @@ public:
 	  else{
 		  if(front==rear)return -1;
 		  int ans=arr[front++];
-		  
-	
 		  return ans;
 	  }
 	}
