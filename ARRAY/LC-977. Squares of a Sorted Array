@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int square(int n){
+        return n*n;
+    }
+
+    vector<int> sortedSquares(vector<int>& nums) {
+        vector<int>ans;
+        ans=nums;
+        int size=nums.size()-1;
+        int left=0,right=size;
+     
+        while(size>=0){
+            if(square(nums[left])>square(nums[right])){
+                ans[size--]=square(nums[left++]);
+            }else{
+                ans[size--]=square(nums[right--]);
+            }
+        }
+        return ans;
+    }
+};
