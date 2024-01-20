@@ -1,26 +1,23 @@
-
 class Solution {
 public:
-    int height(TreeNode* root){
+    int solve(TreeNode* root){
         if(root==NULL)return 0;
-
-        int left=height(root->left);
-        int right=height(root->right);
-        int ans=max(left,right)+1;
-        return ans;
+         
+        int left=solve(root->left);
+        if(left==-1)return -1;
+        int right=solve(root->right);
+        if(right==-1)return -1;
+        
+        //checking for unbalanced
+        if(abs(right-left)>1)return -1;
+        
+        return max(left,right)+1;
     }
 
     bool isBalanced(TreeNode* root) {
-        if(root==NULL)return true;
-        
-        int leftHeight=height(root->left);
-        int rightHeight=height(root->right);
-        int difference=abs(leftHeight-rightHeight);
-        
-        bool left=isBalanced(root->left);
-        bool right=isBalanced(root->right);
-        bool ans=(difference<=1);
+        bool ans=false;
+        ans=solve(root)!=-1;
 
-        return left && right && ans;
+        return ans;
     }
 };
