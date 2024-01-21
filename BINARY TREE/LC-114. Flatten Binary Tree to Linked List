@@ -1,0 +1,21 @@
+
+class Solution {
+public:
+    void flatten(TreeNode* root) {
+        TreeNode* curr=root;
+       
+        while(curr!=NULL){
+            //only if left node is present
+            if(curr->left){
+                 TreeNode* prev=curr->left;
+                 while(prev->right)prev=prev->right;
+                 //making connections as per morris traversal
+                 prev->right=curr->right;
+                 curr->right=curr->left;
+                 curr->left=NULL;
+            }
+            //if left node is absent
+            curr=curr->right;
+        }
+    }
+};
