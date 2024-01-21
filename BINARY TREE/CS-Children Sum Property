@@ -1,0 +1,14 @@
+bool isParentSum(Node *root){
+    if(root==NULL)return true;
+    int temp=0;
+
+    if(root->left)temp+=root->left->data;
+    if(root->right)temp+=root->right->data;
+
+    if(root->data!=temp && temp!=0)return false;
+
+    bool left=isParentSum(root->left);
+    bool right=isParentSum(root->right);
+
+    return left && right;
+}
