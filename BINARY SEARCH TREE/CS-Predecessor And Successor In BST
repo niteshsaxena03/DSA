@@ -1,31 +1,36 @@
-pair<int,int> predecessorSuccessor(BinaryTreeNode<int>* root, int key)
+pair<int, int> predecessorSuccessor(TreeNode *root, int key)
 {
-    int pre=-1;
-    int suc=-1;
-    
-    BinaryTreeNode<int>* temp=root;
+  int pre=-1;
+  int succ=-1;
 
-    while(temp->data!=key){
-        if(temp->data>key){
-            suc=temp->data;
-            temp=temp->left;
-        }
-        if(temp->data<key){
-            pre=temp->data;
-            temp=temp->right;
-        }
+  TreeNode *curr=root;
+
+  while(curr!=NULL && curr->data!=key){
+    if (curr->data > key) {
+      succ=curr->data;
+      curr = curr->left;
+    } else{
+        pre=curr->data;
+        curr = curr->right; 
     }
-BinaryTreeNode<int>* pred=temp->left;
-while(pred!=NULL){    
-    pre=pred->data;
-    pred=pred->right;
-}
-BinaryTreeNode<int>* succ=temp->right;
-while(succ!=NULL){
-    suc=succ->data;
-    succ=succ->left;
-}
-return {pre,suc};   
     
-}
+  }
   
+  if(curr){
+  //for getting predecessor
+  TreeNode* leftNode=curr->left;
+  while (leftNode != NULL) {
+      pre = leftNode->data;
+      leftNode = leftNode->right;
+  }
+
+  //for getting successor
+  TreeNode* rightNode=curr->right;
+  while (rightNode != NULL) {
+      succ = rightNode->data;
+      rightNode = rightNode->left;
+  }
+  }
+
+  return {pre,succ};
+}
