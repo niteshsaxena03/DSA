@@ -1,12 +1,12 @@
 class Solution {
 public:
     void solve(Node* root){
-        if(root==NULL)return;
+        if(root==NULL||root->left==NULL && root->right==NULL)return;
 
         if(root->next){
-            if(root->right)root->right->next=root->next->left;
+            root->right->next=root->next->left;
         }
-        if(root->left)root->left->next=root->right;
+        root->left->next=root->right;
 
         solve(root->left);
         solve(root->right);
