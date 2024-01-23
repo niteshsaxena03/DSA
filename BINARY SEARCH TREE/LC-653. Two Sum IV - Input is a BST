@@ -1,0 +1,53 @@
+class BSTiterator{
+    private:
+    stack<TreeNode*>s;
+
+    //true->before and false->next
+    bool reverse=true;
+
+    void partialInorder(TreeNode* root){
+        while(root){
+            s.push(root);
+            if(reverse)root=root->right;
+            else root=root->left;
+        }
+    }
+    public:
+    BSTiterator(TreeNode* root,bool isReverse){
+        reverse=isReverse;
+        partialInorder(root);
+    }
+    bool hasNext(){
+        return !s.empty();
+    }
+    int next(){
+        TreeNode* top=s.top();
+        s.pop();
+        if(reverse)partialInorder(top->left);
+        else partialInorder(top->right);
+        return top->val;
+    }
+};
+
+
+class Solution {
+public:
+    bool findTarget(TreeNode* root, int k) {
+        if(root==NULL)return false;
+
+        //for next
+        BSTiterator lefti(root,false);
+        //for before
+        BSTiterator righti(root,true);
+
+        int i=lefti.next();
+        int j=righti.next();//before
+
+        while(i<j){
+            if(i+j==k)return true;
+            else if(i+j<k)i=lefti.next();
+            else j=righti.next();
+        }
+        return false;
+    }
+};
