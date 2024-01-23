@@ -1,0 +1,26 @@
+class Solution{
+private:
+    void solve(Node* root,int x,int &ans){
+        if(root==NULL)return;
+        
+        //if value found
+        if(root->data==x){
+            ans=root->data;
+            return;
+        }
+        if(root->data<x){
+            ans=root->data;
+            if(root->right)solve(root->right,x,ans);
+        }
+        else if(root->data>x){
+            if(root->left)solve(root->left,x,ans);
+        }
+    }
+
+public:
+    int floor(Node* root, int x) {
+        int ans=-1;
+        solve(root,x,ans);
+        return ans;
+    }
+};
