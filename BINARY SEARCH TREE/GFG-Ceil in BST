@@ -1,0 +1,24 @@
+void solve(Node* root, int input,int &ans){
+    if(root==NULL)return;
+    
+    if(root->data==input){
+        ans=input;
+        return;
+    }
+    if(root->data>input){
+        //possible ans
+        ans=root->data;
+        if(root->left)solve(root->left,input,ans);
+    }
+    else if(root->data<input){
+        if(root->right)solve(root->right,input,ans);
+    }
+}
+
+
+int findCeil(Node* root, int input) {
+    int ans=-1;
+    solve(root,input,ans);
+    return ans;
+
+}
