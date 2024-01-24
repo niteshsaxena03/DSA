@@ -1,0 +1,35 @@
+class Node{
+    public: 
+    int minNode, maxNode, maxSum;
+    
+    Node(int minNode, int maxNode, int maxSum)
+    {
+        this->minNode = minNode;
+        this->maxNode = maxNode;
+        this->maxSum = maxSum;
+    }
+};
+class Solution {
+private:
+    Node solve(TreeNode* root){
+        if(!root)return Node(INT_MAX,INT_MIN,0);
+
+        auto left=solve(root->left);
+        auto right=solve(root->right);
+
+        if(left.maxNode<root->val && right.minNode>root->val){
+            //valid BST
+            int tempSum=root->val+left.maxSum+right.maxSum;
+            sum=max(sum,tempSum);
+
+            return Node(min(root->val,left.minNode),max(root->val,right.maxNode),tempSum);
+        }
+        return Node(INT_MIN,INT_MAX,max(left.maxSum,right.maxSum));
+    }
+public:
+    int sum=0;
+    int maxSumBST(TreeNode* root) {
+        solve(root);
+        return sum>0?sum:0;
+    }
+};
