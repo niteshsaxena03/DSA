@@ -1,0 +1,27 @@
+class Solution {
+public:
+    void changerc(vector<vector<int>>&ans,int m,int n,int row,int col,int num,int color){
+        if(m<0||n<0||m==row||n==col||ans[m][n]==color||ans[m][n]!=num)return;
+
+        ans[m][n]=color;
+
+        changerc(ans,m+1,n,row,col,num,color);
+        changerc(ans,m-1,n,row,col,num,color);
+        changerc(ans,m,n+1,row,col,num,color);
+        changerc(ans,m,n-1,row,col,num,color);
+    }
+
+    vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int color) {
+        vector<vector<int>>ans;
+        ans=image;
+
+        int r=image.size();
+        int c=image[0].size();
+
+        int num=ans[sr][sc];
+        
+        changerc(ans,sr,sc,r,c,num,color);
+        
+        return ans;
+    }
+};
