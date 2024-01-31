@@ -1,0 +1,34 @@
+class Solution {
+private:
+    void dfs(vector<vector<char>>& grid,int row,int col){
+        int gridRow=grid.size();
+        int gridCol=grid[0].size();
+        //base cases
+        if(row<0||row==gridRow||col<0||col==gridCol||grid[row][col]=='0')return;
+
+        //changing 1 to 0
+        grid[row][col]='0';
+
+        //making further dfs calls
+        dfs(grid,row+1,col);
+        dfs(grid,row-1,col);
+        dfs(grid,row,col+1);
+        dfs(grid,row,col-1);
+    }
+public:
+    int numIslands(vector<vector<char>>& grid) {
+        int row=grid.size();
+        int col=grid[0].size();
+        int count=0;
+
+        for(int i=0;i<row;i++){
+            for(int j=0;j<col;j++){
+                if(grid[i][j]=='1'){
+                    count++;
+                    dfs(grid,i,j);
+                }
+            }
+        }
+        return count;
+    }
+};
