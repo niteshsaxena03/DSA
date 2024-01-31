@@ -1,0 +1,28 @@
+class Solution {
+private:
+    bool dfs(int node,int color,vector<int>&colorVisited,vector<vector<int>>& graph){
+        colorVisited[node]=color;
+
+        for(auto i:graph[node]){
+            if(colorVisited[i]==-1){
+                if(dfs(i,!color,colorVisited,graph)==false)return false;
+            }
+            else if(colorVisited[i]==color)return false;
+        }
+        return true;
+    }
+public:
+    bool isBipartite(vector<vector<int>>& graph) {
+        int v=graph.size();
+
+        vector<int>colorVisited(v,-1);
+        for(int i=0;i<v;i++){
+            if(colorVisited[i]==-1){
+                //return false if there is anyone which cant be coloured
+                if(dfs(i,0,colorVisited,graph)==false)return false;
+            }
+        }
+        //all coloured
+        return true;
+    }
+};
