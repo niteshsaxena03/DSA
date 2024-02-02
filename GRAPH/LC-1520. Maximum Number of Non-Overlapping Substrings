@@ -15,6 +15,7 @@ void dfs(int v, vector<vector<bool>>& graph, stack<int>& stk, vector<bool>& visi
     }
 }
 
+//this is used for reverse dfs
 void dfs(int v, vector<vector<bool>>& graph, vector<int>& batches, int batch, vector<int>& degree) {
     if (batches[v] < 0) {
         batches[v] = batch;
