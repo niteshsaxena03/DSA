@@ -2,23 +2,21 @@
 #include <vector>
 #include <list>
 #include <stack>
-void topo(int node,unordered_map<int,list<int>>&adj,unordered_map<int,bool>&vis,stack<int>&s){
+void topo(int node,unordered_map<int,bool>&vis,unordered_map<int,list<int>>&adj,stack<int>&s){
 	vis[node]=true;
-
+	
 	for(auto i:adj[node]){
 		if(!vis[i]){
-			topo(i,adj,vis,s);
+			topo(i,vis,adj,s);
 		}
 	}
-	//backtracking
 	s.push(node);
 }
-void revdfs(int node,unordered_map<int,list<int>>&adj,unordered_map<int,bool>&vis){
+void revdfs(int node,unordered_map<int,bool>&vis,unordered_map<int,list<int>>&adj){
 	vis[node]=true;
-
 	for(auto i:adj[node]){
 		if(!vis[i]){
-            revdfs(i,adj,vis);
+			revdfs(i,vis,adj);
 		}
 	}
 }
@@ -26,42 +24,40 @@ void revdfs(int node,unordered_map<int,list<int>>&adj,unordered_map<int,bool>&vi
 
 int stronglyConnectedComponents(int v, vector<vector<int>> &edges)
 {
-	stack<int>s;
 	unordered_map<int,list<int>>adj;
-	unordered_map<int,bool>vis;
-	int count=0;
-	unordered_map<int,list<int>>transpose;
-	//preparing adjlist
 	for(int i=0;i<edges.size();i++){
 		int u=edges[i][0];
 		int v=edges[i][1];
-
-		adj[u].push_back(v);
+		adj[u].push_back(u);
 		
 	}
-    //preparing topological sort stack
+    int count=0;
+	stack<int>s;
+	unordered_map<int,bool>vis;
+	unordered_map<int,int>transpose;
+	
+	//preparing stack
 	for(int i=0;i<v;i++){
-       if(!vis[i]){
-		   topo(i,adj,vis,s);
-	   }
+		if(!vis[i]){
+			topo(i,vis,adj,s);
+		}
 	}
 	//preparing transpose graph
-	for(int i=0;i<v;i++){
-	  vis[i]=false;
-	   for(auto j:adj[i])transpose[j].push_back(i);
+	for(int i=0;i<edges.size();i++){
+		vis[i]=false;
+		for(auto j:adj[i])transpose[j].push_back(i);
 	}
-	
+	//using stack
 	while(!s.empty()){
-           auto k=s.top();
-		   s.pop();
+		int k=s.top();
+		s.pop();
 
-		   //using dfs traversal
-		   
-			   if(!vis[k]){
-                    count++;
-					revdfs(k,transpose,vis);
-			   }
-		   
+		for(auto i:adj[k]){
+			if(!vis[i]){
+				count++;
+				revdfs(i,vis,transpose);
+			}
+		}
 	}
 	return count;
 }
