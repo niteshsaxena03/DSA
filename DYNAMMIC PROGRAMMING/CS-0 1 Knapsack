@@ -1,27 +1,23 @@
-#include <bits/stdc++.h> 
-#include <vector>
+int solvemem(vector<int> &values, vector<int> &weights, int n, int w,vector<vector<int>>&dp){
+  if (n == 0) {
+    if (weights[0] <= w)
+      return values[0];
+    else
+      return 0;
+  }
 
-int solvemem(vector<int>&weight,vector<int>&value,int n,int maxWeight,vector<vector<int>>&dp){
-	//base case
-	if(n==0){
-		if(weight[0]<=maxWeight)return value[0];
-		else return 0;
-	}
-	if(dp[n][maxWeight]!=-1)return dp[n][maxWeight];
-    //calling include & exclude
-	int include=0;
-        if (weight[n] <= maxWeight) {
-               include = value[n] + solvemem(weight, value, n - 1,
-                                                  maxWeight - weight[n], dp);
-        }
-        int exclude=0+solvemem(weight,value,n-1,maxWeight,dp);
+   if(dp[n][w]!=-1)return dp[n][w];
 
-	return dp[n][maxWeight]=max(include,exclude);
+   int incl=0;
+   if(weights[n]<=w)incl=values[n]+solvemem(values,weights,n-1,w-weights[n],dp);
 
+   int excl=0+solvemem(values,weights,n-1,w,dp);
+
+   return dp[n][w]=max(incl,excl);
 }
 
-int knapsack(vector<int> weight, vector<int> value, int n, int maxWeight) 
+int maxProfit(vector<int> &values, vector<int> &weights, int n, int w)
 {
-	vector<vector<int>>dp(n,vector<int>(maxWeight+1,-1));
-	return solvemem(weight,value,n-1,maxWeight,dp);
+	vector<vector<int>>dp(n,vector<int>(w+1,-1));
+    return solvemem(values,weights,n-1,w,dp);
 }
