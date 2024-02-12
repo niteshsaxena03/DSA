@@ -1,0 +1,22 @@
+class Solution{
+public:
+    int solve(int arr[],vector<vector<int>>&dp,int start,int end){
+        if(start==end)return 0;
+        if(dp[start][end]!=-1)return dp[start][end];
+        
+        int mini=INT_MAX;
+        for(int k=start;k<end;k++){
+            int steps=(arr[start-1]*arr[k]*arr[end])+solve(arr,dp,start,k)+solve(arr,dp,k+1,end);
+            mini=min(steps,mini);
+        }
+        return dp[start][end]=mini;
+    }
+
+    int matrixMultiplication(int N, int arr[])
+    {
+        vector<vector<int>>dp(N,vector<int>(N+1,-1));
+        int start=1;
+        int end=N-1;
+        return solve(arr,dp,start,end);
+    }
+};
