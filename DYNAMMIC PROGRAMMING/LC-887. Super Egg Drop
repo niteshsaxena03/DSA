@@ -1,0 +1,32 @@
+class Solution {
+public:
+//Based on MCM pattern
+    int solvemem(int egg,int floor,vector<vector<int>>&dp){
+        //base cases
+        if(floor==0||floor==1)return floor;
+        if(egg==1)return floor;
+        if(dp[egg][floor]!=-1)return dp[egg][floor];
+        int ans=1e9;
+        int low=1,high=floor,temp=0;
+        
+        while(low<=high){
+            int mid=(low+high)/2;
+            int down=solvemem(egg-1,mid-1,dp);//for going down in building
+            int up=solvemem(egg,floor-mid,dp);//for going up in building
+
+            temp=1+max(down,up);
+
+            if(down<up)low=mid+1;
+            else high=mid-1;
+
+            ans=min(ans,temp);
+        }
+        return dp[egg][floor]=ans;
+    }
+    
+
+    int superEggDrop(int e, int f) {
+      vector<vector<int>>dp(e+1,vector<int>(f+1,-1));
+      return solvemem(e,f,dp);
+    }
+};
