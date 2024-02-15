@@ -1,0 +1,30 @@
+class Solution{
+private:
+    bool isPalindrome(int i,int j,string str){
+        while(i<j){
+            if(str[i++]!=str[j--])return false;
+        }
+        return true;
+    }
+    
+    int solvemem(string &str,vector<int>&dp,int index){
+        if(index==str.size())return 0;
+        
+        if(dp[index]!=-1)return dp[index];
+        int ans=1e9;
+        
+        for(int j=index;j<str.size();j++){
+            if(isPalindrome(index,j,str)){
+                int temp=1+solvemem(str,dp,j+1);
+                ans=min(ans,temp);
+            }
+        }
+        return dp[index]=ans;
+    }
+public:
+    int palindromicPartition(string str)
+    {
+       vector<int>dp(str.size(),-1);
+       return solvemem(str,dp,0)-1;
+    }
+};
