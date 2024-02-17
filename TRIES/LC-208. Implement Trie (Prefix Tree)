@@ -1,0 +1,78 @@
+
+class TrieNode{
+    private:
+        bool flag;
+        vector<TrieNode*> child;
+    public:
+        TrieNode(){
+            this->flag = false;
+            child.resize(26,NULL);
+        }
+
+        void setEnd(){
+            this->flag = true;
+        }
+
+        void setNode(char ch){
+            child[ch-'a'] = new TrieNode();
+        }
+
+        bool isEnd(){
+            return this->flag;
+        }
+
+        bool contains(char ch){
+            return child[ch-'a'] != NULL;
+        }
+
+        TrieNode* getNode(char ch){
+            return child[ch-'a'];
+        }
+};
+
+class Trie {
+private:
+    TrieNode* root;
+public:
+    Trie() {
+        root = new TrieNode();
+    }
+    
+    void insert(string word) {
+        TrieNode* p = root;
+        for(auto i:word){         
+            if(p->contains(i)){
+                p = p->getNode(i);
+            }else{
+                p->setNode(i);
+                p = p->getNode(i);
+            }
+        }
+        p->setEnd();
+    }
+    
+    bool search(string word) {
+        TrieNode* p = root;
+        for(auto i:word){
+            if(p->contains(i)){
+                p = p->getNode(i);
+            }else{
+                return false;
+            }
+        }
+        return p->isEnd();
+    }
+    
+    bool startsWith(string prefix) {
+        TrieNode* p = root;
+        for(auto i:prefix){
+            if(p->contains(i)){
+                p = p->getNode(i);
+            }else{
+                return false;
+            }
+        }
+        return true;
+    }
+};
+
