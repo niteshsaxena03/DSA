@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int solvemem(vector<vector<int>>& grid,vector<vector<int>>&dp,int n,int m,int i,int j){
+   
+        if(i==n-1 && j==m-1)return grid[i][j];
+        if(i>=n||j>=m)return 1e9;
+        if(dp[i][j]!=-1)return dp[i][j];
+
+        //down
+        int down=grid[i][j]+solvemem(grid,dp,n,m,i,j+1);
+
+        //right
+        int right=grid[i][j]+solvemem(grid,dp,n,m,i+1,j);
+
+        return dp[i][j]=min(down,right);
+    }
+
+    int minPathSum(vector<vector<int>>& grid) {
+        int n=grid.size();
+        int m=grid[0].size();
+        vector<vector<int>>dp(n,vector<int>(m+1,-1));
+        return solvemem(grid,dp,n,m,0,0);
+    }
+};
