@@ -23,7 +23,6 @@ class Solution {
     }
     bool isCycle(int V, vector<int> adj[]) {
         vector<int>vis(V,0);
-        
         for(int i=0;i<V;i++){
             if(!vis[i]){
                 if(bfs(i,vis,adj))return true;
