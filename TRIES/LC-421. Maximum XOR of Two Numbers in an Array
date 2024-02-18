@@ -1,0 +1,64 @@
+class TrieNode{
+    private:
+      TrieNode* child[2];
+    public:
+      bool contains(int bit){
+          return child[bit];
+      }
+      void put(int bit,TrieNode* node){
+          child[bit]=node;
+      }
+      TrieNode* get(int bit){
+          return child[bit];
+      }
+};
+
+class Trie{
+    private:
+      TrieNode* root;
+    public:
+      Trie(){
+          root=new TrieNode();
+      }
+      //using 32 bits representation of number for insertion
+      void insert(int num){
+          TrieNode* node=root;
+          for(int i=31;i>=0;i--){
+              int bit=(num>>i)&1;
+              if(!(node->contains(bit))){
+                  node->put(bit,new TrieNode());
+              }
+              //go to the node
+              node=node->get(bit);
+          }
+      }
+      //checking maximum XOR
+      int getMax(int num){
+          TrieNode* node=root;
+          int ans=0;
+
+          for(int i=31;i>=0;i--){
+              int bit=(num>>i)&1;
+              if(node->contains(1-bit)){
+                  ans=ans|(1<<i);
+                  node=node->get(1-bit);
+              }else{
+                  node=node->get(bit);
+              }
+          }
+          return ans;
+      }
+};
+
+class Solution {
+public:
+    int findMaximumXOR(vector<int>& nums) {
+        Trie temp;
+
+        for(auto i:nums)temp.insert(i);
+
+        int ans=0;
+        for(auto i:nums)ans=max(ans,temp.getMax(i));
+        return ans;
+    }
+};
