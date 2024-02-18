@@ -2,7 +2,6 @@ pair<int, int> predecessorSuccessor(TreeNode *root, int key)
 {
   int pre=-1;
   int succ=-1;
-
   TreeNode *curr=root;
 
   while(curr!=NULL && curr->data!=key){
@@ -13,9 +12,7 @@ pair<int, int> predecessorSuccessor(TreeNode *root, int key)
         pre=curr->data;
         curr = curr->right; 
     }
-    
-  }
-  
+  }  
   if(curr){
   //for getting predecessor
   TreeNode* leftNode=curr->left;
@@ -23,7 +20,6 @@ pair<int, int> predecessorSuccessor(TreeNode *root, int key)
       pre = leftNode->data;
       leftNode = leftNode->right;
   }
-
   //for getting successor
   TreeNode* rightNode=curr->right;
   while (rightNode != NULL) {
@@ -31,6 +27,5 @@ pair<int, int> predecessorSuccessor(TreeNode *root, int key)
       rightNode = rightNode->left;
   }
   }
-
   return {pre,succ};
 }
