@@ -24,7 +24,6 @@ class Solution
 	    for(int i=0;i<V;i++){
 	        if(!visited[i])dfs(s,visited,i,adj);
 	    }
-	    
 	    while(!s.empty()){
 	        int top=s.top();
 	        s.pop();
