@@ -1,6 +1,5 @@
 class Solution {
   public:
-  
     bool bfs(int index, vector<int>&vis,vector<int> adj[]){
         vis[index]=1;
         queue<pair<int,int>>q;
@@ -13,10 +12,8 @@ class Solution {
             for(auto i:adj[node]){
              if(!vis[i]){
                     vis[i]=1;
-                    q.push({i,node});
-                    
-                }
-                
+                    q.push({i,node});                  
+                } 
                 else if(parent!=i){
                     return true;
                 }
@@ -24,7 +21,6 @@ class Solution {
         }
         return false;
     }
-  
     bool isCycle(int V, vector<int> adj[]) {
         vector<int>vis(V,0);
         
