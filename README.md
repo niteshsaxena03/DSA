@@ -1,4 +1,4 @@
 all the questions solved by me on different platforms
-CS->CODE STUDIO
-LC->LEETCODE
-GFG->GEEKS FOR GEEKS
+CS->CodeStudio
+LC->LeetCode
+GFG->GeeksForGeeks
