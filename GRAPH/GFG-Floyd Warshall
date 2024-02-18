@@ -8,13 +8,11 @@ class Solution {
 	            if(matrix[i][j]==-1)matrix[i][j]=1e9;
 	            if(i==j)matrix[i][j]=0;
 	        }
-	    }
-	    
+	    } 
 	    //checking negative cycle
 	    for(int i=0;i<n;i++){
 	        if(matrix[i][i]==-1)return;
 	    }
-	    
 	    for(int via=0;via<n;via++){
 	        for(int i=0;i<n;i++){
 	            for(int j=0;j<n;j++){
@@ -22,7 +20,6 @@ class Solution {
 	            }
 	        }
 	    }
-	    
 	    for(int i=0;i<n;i++){
 	        for(int j=0;j<n;j++){
 	            if(matrix[i][j]==1e9)matrix[i][j]=-1;
