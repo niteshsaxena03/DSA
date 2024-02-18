@@ -1,5 +1,4 @@
-class Solution
-{
+class Solution{
     private:
     void dfs(stack<int>&s,vector<bool>&visited,int index,vector<int> adj[]){
         visited[index]=true;
