@@ -23,8 +23,6 @@ public:
         }
         return dp[egg][floor]=ans;
     }
-    
-
     int superEggDrop(int e, int f) {
       vector<vector<int>>dp(e+1,vector<int>(f+1,-1));
       return solvemem(e,f,dp);
