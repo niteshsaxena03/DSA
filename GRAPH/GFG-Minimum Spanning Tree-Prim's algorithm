@@ -1,7 +1,5 @@
-class Solution
-{
-	public:
-	//Function to find sum of weights of edges of the Minimum Spanning Tree.
+class Solution{
+public:
     int spanningTree(int V, vector<vector<int>> adj[])
     {
         //using pq for storing weight and node
@@ -25,7 +23,6 @@ class Solution
             for(auto i:adj[node]){
                 int adjNode=i[0];
                 int adjWeight=i[1];
-                
                 if(!vis[adjNode])pq.push({adjWeight,adjNode});
             }
         }
