@@ -1,9 +1,7 @@
 class TrieNode{
   private:
     TrieNode* links[26];
-
   public:
-
     bool contains(char ch){
         return links[ch-'a'];
     }
@@ -14,7 +12,6 @@ class TrieNode{
         return links[ch-'a'];
     }
 };
-
 int countDistinctSubstrings(string &s)
 {
     int count=0;
@@ -28,7 +25,6 @@ int countDistinctSubstrings(string &s)
                 node->put(s[j],new TrieNode());
             }
            node=node->get(s[j]);
-           
         }
     }
     return count+1;
