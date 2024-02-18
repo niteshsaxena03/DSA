@@ -20,8 +20,6 @@ void revdfs(int node,unordered_map<int,bool>&vis,unordered_map<int,list<int>>&ad
 		}
 	}
 }
-
-
 int stronglyConnectedComponents(int v, vector<vector<int>> &edges)
 {
 	unordered_map<int,list<int>>adj;
