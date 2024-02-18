@@ -1,0 +1,29 @@
+class Solution {
+public:
+    int solvemem(int stickStart, int stickEnd, int cutStart, int cutEnd, vector<int> &cuts,vector<vector<int>>&dp){
+        if(cutStart>cutEnd)return 0;
+
+        if(dp[cutStart][cutEnd]!=-1)return dp[cutStart][cutEnd];
+
+        int ans=1e9;
+
+        for(int i=cutStart;i<=cutEnd;i++){
+            // All the cuts which lies >=k are useless for the left stick subproblem
+            int left=solvemem(stickStart,cuts[i],cutStart,i-1,cuts,dp);
+
+            // All the cuts which lies <=k are useless for the right stick subproblem
+            int right=solvemem(cuts[i],stickEnd,i+1,cutEnd,cuts,dp);
+
+            int length=stickEnd-stickStart;
+
+            ans=min(ans,left+right+length);
+        }
+        return dp[cutStart][cutEnd]=(ans==INT_MAX?0:ans);
+    }
+
+    int minCost(int n, vector<int>& cuts) {
+        vector<vector<int>>dp(cuts.size(),vector<int>(cuts.size()+1,-1));
+        sort(cuts.begin(),cuts.end());
+        return solvemem(0,n,0,cuts.size()-1,cuts,dp);
+    }
+};
