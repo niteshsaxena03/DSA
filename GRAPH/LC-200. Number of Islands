@@ -27,8 +27,7 @@ public:
                     count++;
                     dfs(grid,i,j);
                 }
-            }
-        }
+            }}
         return count;
     }
 };
