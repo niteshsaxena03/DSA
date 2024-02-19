@@ -1,0 +1,10 @@
+class Solution {
+public:
+    bool isPowerOfTwo(int n) {
+        long long maxValue=pow(2,31);
+        if(n<=0)return false;
+
+        if(maxValue%n==0)return true;
+        else return false;
+    }
+};
