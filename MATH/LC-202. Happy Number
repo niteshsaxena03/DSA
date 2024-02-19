@@ -1,0 +1,24 @@
+class Solution {
+private:
+    int squareSum(int n){
+        int ans=0;
+        while(n!=0){
+            int j=n%10;
+            ans+=(j*j);
+            n/=10;
+        }
+        return ans;
+    }
+    
+public:
+    bool isHappy(int n) {
+        int slow=n;
+        int fast=squareSum(n);
+
+        while(fast!=1 && fast!=slow){
+            slow=squareSum(slow);
+            fast=squareSum(squareSum(fast));
+        }
+        return fast==1;
+    }
+};
