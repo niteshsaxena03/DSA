@@ -1,0 +1,19 @@
+class Solution {
+private:
+    bool canPlace(vector<int>&flowerbed,int index){
+        if((index==0||flowerbed[index-1]==0) && (index==flowerbed.size()-1||flowerbed[index+1]==0))return true;
+        return false;
+    }
+public:
+    bool canPlaceFlowers(vector<int>& flowerbed, int n) { 
+        for(int i=0;i<flowerbed.size();i++){
+            if(flowerbed[i]==0){
+                if(canPlace(flowerbed,i)){
+                    n--;
+                    flowerbed[i]=1;
+                }
+            }  
+        }
+        return n<=0;
+    }
+};
