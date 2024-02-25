@@ -1,0 +1,46 @@
+class Solution {
+private:
+    bool isPossible(vector<int>&nums,vector<int>&changeToZero,int s){
+        int n=nums.size();
+        unordered_map<int,int>lastIndex;//storing the last occurence indexes of every element
+        for(int i=0;i<=s;i++)lastIndex[changeToZero[i]]=i;
+
+        int count=0;//to check whether we covered all elements or not
+        int power=0;//storing combined value of element decreasing power to decrease any index all at once
+
+        for(int i=0;i<=s;i++){
+            if(i==lastIndex[changeToZero[i]]){
+                if(nums[changeToZero[i]]>power)return false;
+                else{
+                    power-=nums[changeToZero[i]];//decrement the power as element is being decremented
+                    count++;
+                }
+            }else power++;//if not last occurence index,decremental power keeps on increasing
+        }
+        return count==n;
+    }
+public:
+    int earliestSecondToMarkIndices(vector<int>& nums, vector<int>& changeIndices) {
+        int n=nums.size(),m=changeIndices.size();
+        //convert to 0 based indexing for convinience
+        vector<int>changeToZero=changeIndices;
+        for(auto &i:changeToZero)i--;
+
+        //using binary search for optimizing time
+        int start=0,end=m-1;
+        int ans=-1;
+        int mid=start+(end-start)/2;
+
+        while(start<=end){
+            if(isPossible(nums,changeToZero,mid)){
+                ans=mid;
+                end=mid-1;
+            }else{
+                start=mid+1;
+            }
+            mid=start+(end-start)/2;
+        }
+        if(ans==-1)return ans;
+        else return ans+1;//incremented answer as we are using 0 based array
+    }
+};
