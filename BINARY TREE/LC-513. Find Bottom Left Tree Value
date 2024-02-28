@@ -1,0 +1,19 @@
+class Solution {
+private:
+    void solve(TreeNode* root,int &ans,int &maxlevel,int count){
+        if(root==NULL)return;
+
+        if(count>maxlevel){
+            ans=root->val;
+            maxlevel=max(count,maxlevel);
+        }
+        solve(root->left,ans,maxlevel,count+1);
+        solve(root->right,ans,maxlevel,count+1);
+    }
+public:
+    int findBottomLeftValue(TreeNode* root) {
+        int ans=root->val,maxlevel=1,count=1;
+        solve(root,ans,maxlevel,count);
+        return ans;
+    }
+};
