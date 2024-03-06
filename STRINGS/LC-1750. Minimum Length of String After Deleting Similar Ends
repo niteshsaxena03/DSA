@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int minimumLength(string s) {
+        int length=s.size();
+        if(length<=1)return 0;
+    
+        int i=0,j=s.size()-1;
+        int count=0;
+        while(i<=j){
+            if(s[i]!=s[j])break;
+            char temp=s[i];
+            while(s[i]==temp){
+              count++; 
+              i++; 
+            }
+            while(s[j]==temp){
+              count++;
+              j--;
+            }
+            if(count>=length)break;
+        }
+        cout<<length<<endl;
+        cout<<count<<endl;
+        return length-count;
+    }
+};
