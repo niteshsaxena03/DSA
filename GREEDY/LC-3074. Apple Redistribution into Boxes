@@ -1,0 +1,15 @@
+class Solution {
+public:
+    int minimumBoxes(vector<int>& apple, vector<int>& capacity) {
+        int sum=0;
+        for(auto i:apple)sum+=i;
+        sort(capacity.rbegin(),capacity.rend());
+        int count=0,temp=0;
+        for(auto i:capacity){
+            if(temp>=sum)return count;
+            temp+=i;
+            count++;
+        }
+        return count;
+    }
+};
