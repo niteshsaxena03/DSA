@@ -1,0 +1,30 @@
+class Solution {
+public:
+    ListNode* removeZeroSumSublists(ListNode* head) {
+        if(head==NULL)return NULL;
+        unordered_map<int,ListNode*>m;//for storing prefixSum of every Node
+        ListNode* dummy=new ListNode(0);
+        dummy->next=head;
+        m[0]=dummy;//marking dummy node prefixSum as 0
+
+        int prefixSum=0;
+        while(head!=NULL){
+           prefixSum+=head->val;
+           if(m.find(prefixSum)!=m.end()){
+              ListNode* start=m[prefixSum];//we have to start deletion from here
+              int sum=prefixSum;
+              while(start!=NULL && start!=head){//for reaching the last node till we have to do deletion
+                 start=start->next;
+                 sum+=start->val;
+                 if(start!=head)m.erase(sum);//we should remove the prefix sum of deleted nodes from map also otherwise we may encounter it again
+              }
+              m[prefixSum]->next=head->next;//join the pointer to the next node after deletion
+           }
+           else{
+               m[prefixSum]=head;//mapping all new nodes with their prefixSum
+           }
+           head=head->next;
+        }
+        return dummy->next;
+    }
+};
