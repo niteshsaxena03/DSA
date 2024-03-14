@@ -1,0 +1,15 @@
+class Solution {
+public:
+    int numSubarraysWithSum(vector<int>& nums, int goal) {
+        unordered_map<int,int>m;
+        int count=0,prefixSum=0;
+        m[0]=1;
+
+        for(auto i:nums){
+            prefixSum+=i;
+            if(m[prefixSum-goal])count+=m[prefixSum-goal];
+            m[prefixSum]++;
+        }
+        return count;
+    }
+};
