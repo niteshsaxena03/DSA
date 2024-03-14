@@ -1,0 +1,15 @@
+class Solution {
+public:
+    int subarraySum(vector<int>& nums, int k) {
+        int count=0,prefixSum=0;
+        unordered_map<int,int>m;//map will store prefix sum and its frequency
+
+        for(auto i:nums){
+            prefixSum+=i;
+            if(prefixSum==k)count++;
+            if(m.find(prefixSum-k)!=m.end())count+=m[prefixSum-k];
+            m[prefixSum]++;
+        }
+        return count;
+    }
+};
