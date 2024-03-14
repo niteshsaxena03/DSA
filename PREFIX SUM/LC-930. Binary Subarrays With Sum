@@ -7,8 +7,8 @@ public:
         for(auto i:nums){
             prefixSum+=i;
             if(prefixSum==goal)count++;
-            if(m[prefixSum-goal])count+=m[prefixSum-goal];
-            m[prefixSum]++;
+            if(m[prefixSum-goal])count+=m[prefixSum-goal];//checking how many times the difference of sum and goal occured
+            m[prefixSum]++;//increasing frequency of prefix Sum at every step
         }
         return count;
     }
