@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int findMaxLength(vector<int>& nums) {
+        int prefixSum=0,ans=0;
+        unordered_map<int,int>m;//map will store the first occurence of every prefix Sum
+        m[0]=-1;//starting point
+
+        for(int i=0;i<nums.size();i++){
+            if(nums[i]==1)prefixSum++;//increasing prefix sum if number is 1
+            else prefixSum--; //decrease prefix sum when number is 0
+
+            if(m.find(prefixSum)!=m.end()){
+                int requiredLength=i-m[prefixSum];//this will give length of a subarray which can be a potential answer
+                ans=max(ans,requiredLength);
+            }
+            else m[prefixSum]=i;//storing the occurence as its a new prefix sum
+        }
+        return ans;
+    }
+};
