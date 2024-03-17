@@ -1,0 +1,11 @@
+class Solution {
+public:
+    bool isSubstringPresent(string s) {
+        for(int i=1;i<s.size();i++){
+            if(s[i]==s[i-1])return true;//if any substring of length 2 has equal letters,answer is true
+
+            if(s[i-1]==s[i+1])return true;//doesnt matter which number comes in between,substring will be equal from both ends
+        }
+        return false;
+    }
+};
