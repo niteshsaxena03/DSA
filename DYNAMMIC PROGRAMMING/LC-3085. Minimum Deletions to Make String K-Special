@@ -6,11 +6,12 @@ private:
         if(freq[maxIndex]-freq[index]<=k)return 0;
 
         if(dp[index][maxIndex]!=-1)return dp[index][maxIndex];
+        
+        //deleting a whole character from a string from right side and also left side and taking minimum of both
+        int right=(freq[maxIndex]-freq[index]-k)+solvemem(index,maxIndex-1,freq,k,dp);
+        int left=freq[index]+solvemem(index+1,maxIndex,freq,k,dp);
 
-        int incl=(freq[maxIndex]-freq[index])-k+solvemem(index,maxIndex-1,freq,k,dp);
-        int excl=freq[index]+solvemem(index+1,maxIndex,freq,k,dp);
-
-        return dp[index][maxIndex]=min(incl,excl);
+        return dp[index][maxIndex]=min(left,right);
     }
 public:
     int minimumDeletions(string word, int k) {
