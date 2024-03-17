@@ -1,0 +1,28 @@
+class Solution {
+private:
+    int solvemem(int index,int maxIndex,vector<int>&freq,int k,vector<vector<int>>&dp){
+        //base case
+        if(index==maxIndex)return 0;
+        if(freq[maxIndex]-freq[index]<=k)return 0;
+
+        if(dp[index][maxIndex]!=-1)return dp[index][maxIndex];
+
+        int incl=(freq[maxIndex]-freq[index])-k+solvemem(index,maxIndex-1,freq,k,dp);
+        int excl=freq[index]+solvemem(index+1,maxIndex,freq,k,dp);
+
+        return dp[index][maxIndex]=min(incl,excl);
+    }
+public:
+    int minimumDeletions(string word, int k) {
+        int ans=1e9;
+        vector<int>freq(26,0);
+        vector<vector<int>>dp(26,vector<int>(26,-1));
+
+        for(auto i:word){
+            freq[i-'a']++;
+        }
+        sort(freq.begin(),freq.end());
+
+        return solvemem(0,25,freq,k,dp);
+    }
+};
