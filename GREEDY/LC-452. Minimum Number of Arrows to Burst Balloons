@@ -6,15 +6,19 @@ private:
 public:
     int findMinArrowShots(vector<vector<int>>& points) {
         if(points.size()==0)return 0;
-        sort(points.begin(),points.end(),cmp);//sorting based on column and not rows
+        sort(points.begin(),points.end(),cmp);//sorting based on end points and not start point
+        for(auto i:points)cout<<i[0]<<","<<i[1]<<" ";
 
         int ans=1;
         int lastIndex=points[0][1];
 
         for(int i=1;i<points.size();i++){
-            if(points[i][0]>lastIndex){//this is an overlapping interval
+            if(points[i][0]<=lastIndex){//this is an overlapping interval
+                continue;
+            }
+            if(points[i][0]>lastIndex){//this is not an overlapping interval
                 ans++;
-                lastIndex=points[i][1];//getting to next interval
+                lastIndex=points[i][1];//getting to next interval which cant be burst by previous arrow
             }
             
         }
