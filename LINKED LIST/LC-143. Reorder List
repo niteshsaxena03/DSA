@@ -1,0 +1,51 @@
+
+class Solution {
+private:
+    ListNode* reverse(ListNode* head){
+        ListNode* curr=head;
+        ListNode* prev=NULL;
+
+        while(curr){
+            ListNode* forward=curr->next;
+            curr->next=prev;
+            prev=curr;
+            curr=forward;
+        }
+        return prev;
+    }
+
+    ListNode* findMidNode(ListNode* head){
+        ListNode* slow=head;
+        ListNode* fast=head->next;
+
+        while(fast!=NULL && fast->next!=NULL){
+            slow=slow->next;
+            fast=fast->next->next;
+        }
+        return slow;
+    }
+public:
+    void reorderList(ListNode* head) {
+        ListNode* curr=head;
+        ListNode* middle=findMidNode(head);
+
+        ListNode* newList=middle->next;
+        middle->next=NULL;
+
+        newList=reverse(newList);
+
+        ListNode* temp1=head;
+        ListNode* temp2=newList;
+
+        while(temp2){
+            ListNode* curr1=temp1->next;
+            ListNode* curr2=temp2->next;
+
+            temp1->next=temp2;
+            temp2->next=curr1;
+
+            temp1=curr1;
+            temp2=curr2;
+        }
+    }
+};
