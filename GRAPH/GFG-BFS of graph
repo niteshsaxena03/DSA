@@ -6,8 +6,7 @@ class Solution {
         queue<int>q;
         vector<bool>visited(V);
         q.push(0);
-        visited[0]=true;
-        
+    
         while(!q.empty()){
             int front=q.front();
             q.pop();
