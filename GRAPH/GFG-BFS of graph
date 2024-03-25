@@ -3,9 +3,8 @@ class Solution {
     // Function to return Breadth First Traversal of given graph.
     vector<int> bfsOfGraph(int V, vector<int> adj[]) {
         vector<int>ans;
-        if(V==0)return ans;
-        unordered_map<int,bool>visited;
         queue<int>q;
+        vector<bool>visited(V);
         q.push(0);
         visited[0]=true;
         
@@ -18,8 +17,8 @@ class Solution {
             
             for(auto i:adj[front]){
                 if(!visited[i]){
-                    visited[i]=true;
                     q.push(i);
+                    visited[i]=true;
                 }
             }
         }
