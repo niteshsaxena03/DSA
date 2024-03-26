@@ -6,8 +6,19 @@ long long int solvemem(int n,vector<long long int>&dp){
 
     if(dp[n]!=-1)return dp[n];
 
-    long long  int number=(n-1)%mod;
-    long long int ans=number*(solvemem(n-1,dp)%mod+solvemem(n-2,dp)%mod);
+    //there are n-1 places left to place a number
+    long long  int slotsLeft=(n-1)%mod;
+    
+    //we can swap 2 numbers ,hence n-1 slots are available
+    long long int swapped=solvemem(n-1,dp)%mod;
+   
+    //we can place one number in place of another number 
+    //but the other number is not placed at the position of fist number
+    //hence n-2 slots are left for the rest of numbers
+    long long int placed=solvemem(n-2,dp)%mod;
+
+    //now we get final answer
+    long long int ans=slotsLeft*(swapped+placed);
     return dp[n]=ans%mod;
 }
 
