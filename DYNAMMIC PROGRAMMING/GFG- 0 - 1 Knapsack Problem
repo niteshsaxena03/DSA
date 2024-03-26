@@ -1,0 +1,26 @@
+class Solution{
+    private:
+      int solvemem(int index,int W, int wt[], int val[], int n,vector<vector<int>>&dp){
+          if(index==n){
+              return 0;
+          }
+          if(dp[index][W]!=-1)return dp[index][W];
+          
+          int stolenValue=val[index];
+          int incl=0;
+          if(wt[index]<=W){
+            incl=stolenValue+solvemem(index+1,W-wt[index],wt,val,n,dp);
+          } 
+          int excl=0+solvemem(index+1,W,wt,val,n,dp);
+          
+          return dp[index][W]=max(incl,excl);
+      }
+    public:
+    //Function to return max value that can be put in knapsack of capacity W.
+    int knapSack(int W, int wt[], int val[], int n) 
+    { 
+       int index=0;
+       vector<vector<int>>dp(n,vector<int>(W+1,-1));
+       return solvemem(index,W,wt,val,n,dp);
+    }
+};
