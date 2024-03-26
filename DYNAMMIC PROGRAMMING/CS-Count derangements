@@ -1,16 +1,18 @@
-#include<vector>
 #define mod 1000000007
+#include<vector>
 
 long long int solvemem(int n,vector<long long int>&dp){
-    //base case
     if(n<=2)return n-1;
 
     if(dp[n]!=-1)return dp[n];
-    
-    return dp[n]=(((n-1)%mod)*(solvemem(n-1,dp)%mod+solvemem(n-2,dp)%mod))%mod;
+
+    long long  int number=(n-1)%mod;
+    long long int ans=number*(solvemem(n-1,dp)%mod+solvemem(n-2,dp)%mod);
+    return dp[n]=ans%mod;
 }
 
 long long int countDerangements(int n) {
+    
     vector<long long int>dp(n+1,-1);
     return solvemem(n,dp);
 }
