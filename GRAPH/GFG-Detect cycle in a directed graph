@@ -1,0 +1,28 @@
+class Solution {
+  private:
+    bool dfs(int node,vector<int> adj[],vector<bool>&visited,vector<bool>&samePath){
+        visited[node]=true;
+        samePath[node]=true;
+        
+        for(auto i:adj[node]){
+            if(!visited[i]){
+                visited[i]=true;
+                if(dfs(i,adj,visited,samePath))return true;
+            }
+            else if(samePath[i]==true)return true;
+        }
+        samePath[node]=false;
+        return false;
+    }
+  public:
+    bool isCyclic(int V, vector<int> adj[]) {
+        vector<bool>visited(V);
+        vector<bool>samePath(V);
+        for(int i=0;i<V;i++){
+            if(!visited[i]){
+                if(dfs(i,adj,visited,samePath))return true;
+            }
+        }
+        return false;
+    }
+};
