@@ -15,7 +15,9 @@ class Solution {
                     visited[i]=true;
                     q.push({i,child});
                 }
-                else if(i!=parent)return true;
+                else if(i!=parent){//this proves that we came back to an older node which was visited before too,so its a cycle
+                  return true;
+                }
             }
         }
         return false;
