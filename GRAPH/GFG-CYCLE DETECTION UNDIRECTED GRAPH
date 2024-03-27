@@ -1,30 +1,31 @@
 class Solution {
-  public:
-    bool bfs(int index, vector<int>&vis,vector<int> adj[]){
-        vis[index]=1;
+  private:
+    bool bfs(int node,vector<bool>&visited,vector<int> adj[]){
         queue<pair<int,int>>q;
-        q.push({index,-1});
+        q.push({node,-1});
+        visited[node]=true;
         
         while(!q.empty()){
-            int node=q.front().first;
+            int child=q.front().first;
             int parent=q.front().second;
             q.pop();
-            for(auto i:adj[node]){
-             if(!vis[i]){
-                    vis[i]=1;
-                    q.push({i,node});                  
-                } 
-                else if(parent!=i){
-                    return true;
+            
+            for(auto i:adj[child]){
+                if(!visited[i]){
+                    visited[i]=true;
+                    q.push({i,child});
                 }
-        }}
+                else if(i!=parent)return true;
+            }
+        }
         return false;
     }
+  public:
     bool isCycle(int V, vector<int> adj[]) {
-        vector<int>vis(V,0);
+        vector<bool>visited(V);
         for(int i=0;i<V;i++){
-            if(!vis[i]){
-                if(bfs(i,vis,adj))return true;
+            if(!visited[i]){
+               if(bfs(i,visited,adj))return true;
             }
         }
         return false;
