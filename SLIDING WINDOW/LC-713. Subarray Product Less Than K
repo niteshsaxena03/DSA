@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int numSubarrayProductLessThanK(vector<int>& nums, int k) {
+        int i=0,j=0,ans=0;
+        //i and j will determine the starting and ending of window
+        int tempProduct=1;
+        while(j<nums.size()){
+           tempProduct*=nums[j];
+           //decreasing window size if product is larger than equal to k
+           while(tempProduct>=k && i<=j){
+            tempProduct/=nums[i];//reducing product value as window will be decreasing
+            i++;//decreasing the window size
+           }
+           ans+=(j-i+1);//adding the size of window to final answer as this subarray satisfies the condition
+           j++;
+        }
+        return ans;
+    }
+};
